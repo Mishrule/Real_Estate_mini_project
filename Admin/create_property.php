@@ -18,6 +18,7 @@
         $roomActionText = mysqli_real_escape_string($con, $_POST['roomActionText']);
         $propertyAmount = mysqli_real_escape_string($con, $_POST['propertyAmount']);
         $propertyAmountCharged = mysqli_real_escape_string($con, $_POST['propertyAmountCharged']);
+        $propertyTotalPayment = intval($propertyAmount) + intval($propertyAmountCharged);
 
 		// $propIndexNumber = mysqli_real_escape_string($con, $_POST['propIndexNumber']);
 
@@ -67,7 +68,7 @@
 
 			$Image = $_FILES['propImage']['name'];
     		$Target = "assets/images/" . basename($_FILES['propImage']['name']);
-			$propRegisterSQL = "INSERT INTO property VALUES('','$propertyName','$propertyDescription','$propertyLocation','$propertyStatus','$propertyNumRoom','$propertyBath','$propertyGarage','$propertyWater','$propertyRoomTypes','$propertAgentNameTxt','$propertyLandLordTxt','$roomActionText','$Image','$propertyAmount','$propertyAmountCharged','$DateTime')";
+			$propRegisterSQL = "INSERT INTO property VALUES('','$propertyName','$propertyDescription','$propertyLocation','$propertyStatus','$propertyNumRoom','$propertyBath','$propertyGarage','$propertyWater','$propertyRoomTypes','$propertAgentNameTxt','$propertyLandLordTxt','$roomActionText','$Image','$propertyAmount','$propertyAmountCharged','$propertyTotalPayment','$DateTime')";
 
 			$propRegisterResult = mysqli_query($con, $propRegisterSQL);
 			move_uploaded_file($_FILES['propImage']['tmp_name'], $Target);
@@ -366,7 +367,7 @@
                                             <li
                                                 class="list-group-item d-flex justify-content-between align-items-center">
                                                 <span> '.$retrievePropRow['propname'].'</span>
-                                                <span class="badge bg-info badge-pill badge-round ml-1">'.$retrievePropRow['propamountcharged'].'</span>
+                                                <span class="badge bg-info badge-pill badge-round ml-1">'.$retrievePropRow['proptotal'].'</span>
                                             </li>
                                             ';
                                         }
