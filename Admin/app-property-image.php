@@ -1,3 +1,57 @@
+<?php require_once('../scripts/db.php'); ?>
+<?php 
+	require_once('../scripts/datetime.php');
+
+	$propMessage = '';
+	if(isset($_POST['submit'])){
+
+        $propertyId = mysqli_real_escape_string($con, $_POST['propertyId']);
+        $Image = $_FILES['propImage']['name'];
+		// $propIndexNumber = mysqli_real_escape_string($con, $_POST['propIndexNumber']);
+
+		if($propertyId == ''){
+			$propMessage = '
+
+			<div class="alert alert-warning alert-dismissible fade show" role="alert">
+				<strong>Property Name cannot be empty.</strong>
+			</div>
+			';
+		}else if($Image == ''){
+			$propMessage = '
+			<div class="alert alert-warning alert-dismissible fade show" role="alert">
+				<strong>Please select an Image.</strong>
+				
+			</div>
+			';
+		}else {
+            
+			$Image = $_FILES['propImage']['name'];
+    		$Target = "assets/images/" . basename($_FILES['propImage']['name']);
+			$propRegisterSQL = "INSERT INTO propertyimage VALUES('$propertyId','$Image','$DateTime')";
+
+			$propRegisterResult = mysqli_query($con, $propRegisterSQL);
+			move_uploaded_file($_FILES['propImage']['tmp_name'], $Target);
+
+			if($propRegisterResult){
+				$propMessage = '
+			<div class="alert alert-success alert-dismissible fade show" role="alert">
+				<strong>Property with ID '.$propertyId.'  has been Added</strong>
+				
+			</div>
+			
+			';
+			header("Refresh:3");
+			}else{
+				$propMessage = '
+			<div class="alert alert-warning alert-dismissible fade show" role="alert">
+				<strong>'.mysqli_error($con).' Failed to Add Property</strong>
+				
+			</div>
+			';
+			}
+		}
+	}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -76,7 +130,7 @@
                     <h3>Create Property</h3>
                     <p class="text-subtitle text-muted">Add New Property</p>
                 </div>
-
+                
                 <section class="section">
                     <div class="row mb-4">
                         <div class="col-md-8">
@@ -84,89 +138,64 @@
                                 <div class="card-header">
                                     <h3 class='card-heading p-1 pl-3'>Add Property</h3>
                                 </div>
+                                
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-md-12 col-12">
-                                            <form class="form form-horizontal">
+                                        <div class="row" id="notify">
+                                            <?php echo $propMessage; ?>
+                                        </div>
+                                            <form class="form form-horizontal" method="POST" action="<?php $_PHP_SELF ?>" enctype="multipart/form-data">
                                                 <div class="form-body">
                                                     <div class="row">
                                                         <div class="col-md-4">
                                                             <label>Property Name</label>
                                                         </div>
                                                         <div class="col-md-8 form-group">
-                                                            <input type="text" id="propertyName" class="form-control" name="propertyName" placeholder="Property Name">
+                                                        <div class="input-group mb-3">
+                                                            <label class="input-group-text"
+                                                                for="propertyId">Property Name</label>
+                                                            <select class="form-select" id="propertyId" name="propertyId">
+                                                            <?php 
+                                                                $retrievePropSQL = "SELECT * FROM property ORDER BY createddate DESC LIMIT 10";
+                                                                $retrievePropResult = mysqli_query($con, $retrievePropSQL);
+                                                                if(mysqli_num_rows($retrievePropResult) > 0){
+                                                                    while($retrievePropRow = mysqli_fetch_array($retrievePropResult)){
+                                                                        echo '
+                                                                        <option value="'.$retrievePropRow['propid'].'">'.$retrievePropRow['propname'].'</option>
+ 
+                                                                        ';
+                                                                    }
+                                                                }else{
+                                                                    echo '
+                                                                        <option>No Record</option>
+                                                                    ';
+                                                                }
+                                                            ?>
+                                                                                                                               
+                                                            </select>
+                                                        </div>
                                                         </div>
                                                         <div class="col-md-4">
-                                                            <label>Property Location</label>
+                                                            <label>Property Image</label>
                                                         </div>
                                                         <div class="col-md-8 form-group">
-                                                            <input type="text" id="propertyLocation" class="form-control" name="propertyLocation" placeholder="Property Location">
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <label>Property Status</label>
-                                                        </div>
-                                                        <div class="col-md-8 form-group">
-                                                            <input type="text" id="propertyStatus" class="form-control" name="propertyStatus" placeholder="Property Status">
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <label>Bed Room</label>
-                                                        </div>
-                                                        <div class="col-md-8 form-group">
-                                                            <input type="text" id="propertyBeds" class="form-control" name="propertyBeds" placeholder="Property Bed">
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <label>No. of Baths</label>
-                                                        </div>
-                                                        <div class="col-md-8 form-group">
-                                                            <input type="text" id="propertyBath" class="form-control" name="propertyBath" placeholder="Number of Birth">
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <label>Garage</label>
-                                                        </div>
-                                                        <div class="col-md-8 form-group">
-                                                            <input type="text" id="propertyGarage" class="form-control" name="propertyGarage" placeholder="Property Garage">
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <label>Internet Access</label>
-                                                        </div>
-                                                        <div class="col-md-8 form-group">
-                                                            <input type="text" id="propertyInternet" class="form-control" name="propertyInternet" placeholder="Internet">
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <label>Room Type</label>
-                                                        </div>
-                                                        <div class="col-md-8 form-group">
-                                                            <input type="text" id="propertyRoomTypes" class="form-control" name="propertyRoomTypes" placeholder="Room Types">
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <label>Agent Name</label>
-                                                        </div>
-                                                        <div class="col-md-8 form-group">
-                                                            <input type="text" id="propertAgentNameTxt" class="form-control" name="propertAgentNameTxt" placeholder="Agent Name">
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <label>LandLord</label>
-                                                        </div>
-                                                        <div class="col-md-8 form-group">
-                                                            <input type="text" id="propertyLandLordTxt" class="form-control" name="propertyLandLordTxt" placeholder="LandLord">
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <label>Room Actions</label>
-                                                        </div>
-                                                        <div class="col-md-8 form-group">
-                                                            <input type="text" id="roomActionText" class="form-control" name="roomActionText" placeholder="Room Actions">
+                                                            <div class="form-file">
+                                                                <input type="file" class="form-file-input" id="propImage" name="propImage">
+                                                            </div>
                                                         </div>
                                                         
+
                                                         <div class="col-12 col-md-8 offset-md-4 form-group">
                                                             <div class='form-check'>
                                                                 <div class="checkbox">
                                                                     <input type="checkbox" id="propertyAgreeCheck" class='form-check-input'>
-                                                                    <label for="propertyAgreeCheck">Agree to Create</label>
+                                                                    <label for="propertyAgreeCheck">Agree to Add</label>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-12 d-flex justify-content-end">
-                                                            <button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>
+                                                            <button type="submit" id="submit" name="submit" class="btn btn-primary me-1 mb-1">Create Property</button>
                                                             <button type="reset" class="btn btn-light-secondary me-1 mb-1">Reset</button>
                                                         </div>
                                                     </div>
@@ -180,20 +209,42 @@
                                 </div>
                             </div>
                         </div>
+                        <!--
                         <div class="col-md-4">
                             <div class="card ">
                                 <div class="card-header">
                                     <h4>Last 10 Registered Property</h4>
                                 </div>
                                 <div class="card-body">
-                                    <div id="radialBars"></div>
-                                    <div class="text-center mb-5">
-                                        <h6>From last month</h6>
-                                        <h1 class='text-green'>+$2,134</h1>
-                                    </div>
+                                <ul class="list-group">
+                                <?php 
+                                    $retrievePropSQL = "SELECT * FROM property ORDER BY createddate";
+                                    $retrievePropResult = mysqli_query($con, $retrievePropSQL);
+                                    if(mysqli_num_rows($retrievePropResult) > 0){
+                                        while($retrievePropRow = mysqli_fetch_array($retrievePropResult)){
+                                            echo '
+                                            <li
+                                                class="list-group-item d-flex justify-content-between align-items-center">
+                                                <span> '.$retrievePropRow['propname'].'</span>
+                                                <span class="badge bg-info badge-pill badge-round ml-1">'.$retrievePropRow['propamountcharged'].'</span>
+                                            </li>
+                                            ';
+                                        }
+                                    }else{
+                                        echo '
+                                        <li
+                                            class="list-group-item d-flex justify-content-between align-items-center">
+                                            <span>No Records Found</span>
+                                            <span class="badge bg-warning badge-pill badge-round ml-1">0</span>
+                                        </li>
+                                        ';
+                                    }
+                                ?>
+                                 </ul>       
+       
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </section>
             </div>
@@ -212,3 +263,16 @@
 </body>
 
 </html>
+<script>
+    $(document).ready(function(){
+        $('#submit').hide();
+        $('#propertyAgreeCheck').click(function(){
+            if($('#propertyAgreeCheck').is(':checked')){
+                $('#submit').show();
+            }else{
+                $('#submit').hide();
+            }
+        });
+        
+    })
+</script>

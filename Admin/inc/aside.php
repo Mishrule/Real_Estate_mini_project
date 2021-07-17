@@ -33,11 +33,11 @@
                         <li>
                             <a href="manage_property.php">Manage Property</a>
                         </li>
-
+<!--
                         <li>
                             <a href="view_property.php">View Property</a>
                         </li>
-<!--
+
                         <li>
                             <a href="component-buttons.html">Buttons</a>
                         </li>
@@ -398,12 +398,12 @@
                         </li>
 
                         <li>
-                            <a href="manage_user.php>Manage Users</a>
+                            <a href="manage_user.php">Manage Users</a>
                         </li>
 
-                      <!--  <li>
+                        <li>
                             <a href="Logout.php">Logout</a>
-                        </li> -->
+                        </li> 
 
                     </ul>
 
@@ -421,7 +421,7 @@
                     <ul class="submenu ">
 
                         <li>
-                            <a href="auth-login.html">Users</a>
+                            <a href="app-property-image.php">Add Property Images</a>
                         </li>
 
                         <li>
