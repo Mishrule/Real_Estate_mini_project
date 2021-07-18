@@ -100,11 +100,11 @@
                         <li>
                             <a href="manage_agent.php">Manage Agent</a>
                         </li>
-
+<!--
                         <li>
                             <a href="agent_list.php">Agent List</a>
                         </li>
-<!--
+
                         <li>
                             <a href="component-buttons.html">Buttons</a>
                         </li>
