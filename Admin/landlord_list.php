@@ -74,85 +74,75 @@
 
             <div class="main-content container-fluid">
                 <div class="page-title">
-                    <h3>Manage Landlord</h3>
-                    <p class="text-subtitle text-muted">Manage Landlord</p>
+                    <h3>View Landlord</h3>
+                    <p class="text-subtitle text-muted">View a single Landlord</p>
                 </div>
                 <section class="section">
-                    
+                    <!-- House with internet
+                    house with tiles
+                    house with garage
+                    house with  location -->
+                    <div class="row notify"></div>
                     <div class="row" id="table-head">
-                        <div class="col-12">
-                            <div class="card">
-                                <!-- <div class="card-header">
-                                    <h4 class="card-title">Table head options</h4>
-                                </div> -->
-                                <div class="card-content">
-                                    <div class="card-body">
-                                    <div class="row notify"></div>
-                                    </div>
-                                    <!-- table head dark -->
-                                    <div class="container">
-                                        <div class="table-responsive">
-                                            <!-- <table id="propertyTable"  class="table mb-0"> -->
-                                            <table class='table table-striped' id="table1">
-                                                <thead class="thead-dark">
-                                                    <tr>
-                                                        <th>S/N</th>
-                                                        <th>LANDLORD NAME</th>
-                                                        <th>LANDLORD BIO</th>
-                                                        <th>LANDLORD LOCATION</th>
-                                                        <th>LANDLORD CONTACT</th>
-                                                        <th>LANDLORD PASSWORD</th>
-                                                        <th>LANDLORD EMAIL</th>
-                                                        <th>DATE CREATED</th>
-                                                        <th>CONTROLS</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php
-                                                    $retrieveLandlordSQL = "SELECT * FROM landlord ORDER BY createddate DESC";
-                                                    $retrieveLandlordResult = mysqli_query($con, $retrieveLandlordSQL);
-                                                    $count = 1;
-                                                    if (mysqli_num_rows($retrieveLandlordResult) > 0) {
-                                                        while ($retrieveLandlordRow = mysqli_fetch_array($retrieveLandlordResult)) {
-                                                            echo '
-                                                            <tr>
-                                                                <td>' . $count . '</td>
-                                                                <td><a href="landlord_list.php?landlordid=' . $retrieveLandlordRow['landlordid'] . '">' . $retrieveLandlordRow['landlordname'] . '</a></td>
-                                                                <td>' . $retrieveLandlordRow['landlordbio'] . '</td>
-                                                                <td>' . $retrieveLandlordRow['landlordlocation'] . '</td>
-                                                                <td>' . $retrieveLandlordRow['landlordcontact'] . '</td>
-                                                                <td>' . $retrieveLandlordRow['landlordpassword'] . '</td>
-                                                                <td>' . $retrieveLandlordRow['landlordemail'] . '</td>
-                                                                <td>' . $retrieveLandlordRow['createddate'] . '</td>
+                        <div class="col-4">
+                            <?php
+                            if (isset($_GET['landlordid'])) {
+                                $landlordID = intVal(mysqli_real_escape_string($con, $_GET['landlordid']));
+
+                                $retrieveLandlordSQL = "SELECT * from landlord WHERE landlordid = $landlordID;
+                                                         ";
+
+                                $retrieveLandlordResult = mysqli_query($con, $retrieveLandlordSQL);
+
+                                if (mysqli_num_rows($retrieveLandlordResult) > 0) {
+                                    while ($retrieveLandlordRow = mysqli_fetch_array($retrieveLandlordResult)) {
+                                        echo '
+                                            <div class="card">
+                                                <div class="card-content">
+                                                    <img src="assets/images/' . $retrieveLandlordRow['landlordimage'] . '" class="d-block w-100" alt="landlord Name">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">' . $retrieveLandlordRow['landlordname'] . '</h5>
+                                                                <p class="card-text">
+                                                                            ' . $retrieveLandlordRow['landlordbio'] . '
+                                                                </p>
+                                                        </div>
+                                                </div>
+                                                <ul class="list-group list-group-flush">
+                                                    <li class="list-group-item"><strong>Landlord Location:</strong> ' . $retrieveLandlordRow['landlordlocation'] . '</li>
+                                                    <li class="list-group-item"><strong>Landlord Contact:</strong> ' . $retrieveLandlordRow['landlordcontact'] . '</li>
+                                                    <li class="list-group-item"><strong>Landlord Password:</strong> ' . $retrieveLandlordRow['landlordpassword'] . '</li>
+                                                    <li class="list-group-item"><strong>Landlord Email:</strong> ' . $retrieveLandlordRow['landlordemail'] . '</li>
+                                                    <li class="list-group-item"><strong>Created Date:</strong> ' . $retrieveLandlordRow['createddate'] . '</li>
+                                                                        
+                                                </ul>
+                                                <div class="divider">
+                                                    <div class="divider-text">Controls</div>
+                                                </div>
+                                                <div class="row notify"></div>
+                                                <div class="card-footer d-flex justify-content-between">
+                                                <button type="button" class="btn btn-primary round me-1 edit" id="' . $retrieveLandlordRow['landlordid'] . '" name="' . $retrieveLandlordRow['landlordid'] . '"  data-bs-toggle="modal" data-bs-target="#primary">Update</button>
+
+                                                <button type="button" id="' . $retrieveLandlordRow['landlordid'] . '" name="' . $retrieveLandlordRow['landlordid'] . '" class="btn btn-danger round del">Delete</button><br />
+                                            </div>
+                                            </div>
+                                            
                                                                 
-                                                                <td>
-                                                                    <i style="color:blue;" data-feather="edit" id="' . $retrieveLandlordRow['landlordid'] . '" name="' . $retrieveLandlordRow['landlordid'] . '" class="edit"  data-bs-toggle="modal" data-bs-target="#primary"></i>
-                                                                    <i ></i>
-                                                                    <i style="color:red;" data-feather="trash" id="' . $retrieveLandlordRow['landlordid'] . '" name="' . $retrieveLandlordRow['landlordid'] . '" class="del"></i>
-                                                                </td>
-                                                            </tr>
-                                                            ';
-                                                            $count++;
-                                                        }
-                                                    } else {
-                                                        echo '
-                                                        <tr>
-                                                            <td colspan="11" class="text-bold-500"><marquee>Sorry No Records Found</marquee></td>
-                                                        </tr>
-                                                        ';
-                                                    }
-                                                    ?>
+                                        ';
+                                    }
+                                } else {
+                                    echo '
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item">Sorry No Landlord Records Found ' . mysqli_error($con) . '</li>
+                                        </ul>
+                                                            
+                                    ';
+                                }
+                            }
 
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
+                            ?>
 
-                                </div>
-                            </div>
                         </div>
                     </div>
-                    <!-- Table head options end -->
                 </section>
             </div>
 
@@ -161,7 +151,6 @@
                     <div class="float-start">
                         <p>2020 &copy; Voler</p>
                     </div>
-
                 </div>
             </footer>
         </div>
@@ -256,7 +245,7 @@
     });
 </script>
 
-
+</html>
 <div class="modal-primary me-1 mb-1 d-inline-block">
     <!-- Button trigger for primary themes modal -->
     <!-- <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#primary">
