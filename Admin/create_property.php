@@ -344,7 +344,7 @@
                                                         </div>
                                                         </div>
                                                         <div class="col-md-4">
-                                                            <label>About by Landlord</label>
+                                                            <label>Amount by Landlord per Month</label>
                                                         </div>
                                                         <div class="col-md-8 form-group">
                                                             <input type="number" id="propertyAmount" class="form-control" name="propertyAmount" placeholder="Property Amount by Landlord">
