@@ -284,14 +284,50 @@
                                                         <div class="col-md-4">
                                                             <label>Agent Name</label>
                                                         </div>
+
                                                         <div class="col-md-8 form-group">
-                                                            <input type="text" id="propertAgentNameTxt" class="form-control" name="propertAgentNameTxt" placeholder="Agent Name">
+                                                           <select class="form-select" id="propertAgentNameTxt" name="propertAgentNameTxt">
+                                                                                                                           
+                                                            <?php 
+                                                                $agentSQL = "SELECT * FROM agent";
+                                                                $agentResult = mysqli_query($con, $agentSQL);
+                                                                if(mysqli_num_rows($agentResult)>0){
+                                                                    while($agentRow = mysqli_fetch_array($agentResult)){
+                                                                        echo'
+                                                                            <option value="'.$agentRow['agentname'].'">'.$agentRow['agentname'].'</option>
+                                                                        ';
+                                                                    }
+                                                                }else{
+                                                                    echo'
+                                                                        <option value="Administrator">Administrator</option>
+                                                                    ';
+                                                                }
+                                                            ?>
+                                                            </select>
                                                         </div>
                                                         <div class="col-md-4">
                                                             <label>LandLord</label>
                                                         </div>
                                                         <div class="col-md-8 form-group">
-                                                            <input type="text" id="propertyLandLordTxt" class="form-control" name="propertyLandLordTxt" placeholder="LandLord">
+                                                            
+                                                            <select class="form-select" id="propertyLandLordTxt" name="propertyLandLordTxt">
+                                                                                                                           
+                                                            <?php 
+                                                                $landlordSQL = "SELECT * FROM landlord";
+                                                                $landlordResult = mysqli_query($con, $landlordSQL);
+                                                                if(mysqli_num_rows($landlordResult)>0){
+                                                                    while($landlordRow = mysqli_fetch_array($landlordResult)){
+                                                                        echo'
+                                                                            <option value="'.$landlordRow['landlordname'].'">'.$landlordRow['landlordname'].'</option>
+                                                                        ';
+                                                                    }
+                                                                }else{
+                                                                    echo'
+                                                                        <option value="Unknown">Unknown</option>
+                                                                    ';
+                                                                }
+                                                            ?>
+                                                            </select>
                                                         </div>
                                                         <div class="col-md-4">
                                                             <label>Room Actions</label>
