@@ -348,7 +348,7 @@
                 </li>
 
 
-
+<!--
 
                 <li class="sidebar-item  ">
                     <a href="news.php" class="sidebar-link">
@@ -357,7 +357,7 @@
                     </a>
 
                 </li>
-<!--
+
                 <li class="sidebar-item  ">
                     <a href="form-editor.html" class="sidebar-link">
                         <i data-feather="layers" width="20"></i>
