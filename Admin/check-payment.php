@@ -74,80 +74,63 @@
 
             <div class="main-content container-fluid">
                 <div class="page-title">
-                    <h3>View Payment</h3>
-                    <p class="text-subtitle text-muted">Payment</p>
+                    <h3>Check Payment</h3>
+                    <p class="text-subtitle text-muted">Check Individual Transaction</p>
                 </div>
                 <section class="section">
-                    
+                    <div class="row notify"></div>
                     <div class="row" id="table-head">
-                        <div class="col-12">
-                            <div class="card">
-                                <!-- <div class="card-header">
-                                    <h4 class="card-title">Table head options</h4>
-                                </div> -->
-                                <div class="card-content">
-                                    <div class="card-body">
-                                    <div class="row notify"></div>
-                                    </div>
-                                    <!-- table head dark -->
-                                    <div class="container">
-                                        <div class="table-responsive">
-                                            <!-- <table id="propertyTable"  class="table mb-0"> -->
-                                            <table class='table table-striped' id="table1">
-                                                <thead class="thead-dark">
-                                                    <tr>
-                                                        <th>S/N</th>
-                                                        <th>TANANT NAME</th>
-                                                        <th>PROPERTY NAME</th>
-                                                        <th>LANDLORD NAME</th>
-                                                        <th>NUM MONTH TO RENT</th>
-                                                        <th>PAYMENT TO AGENCY</th>
-                                                        <th>PAYMENT TO LANDLORD</th>
-                                                        <th>TRANSACTION ID</th>
-                                                        <th>TOTAL PAYMENT</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php
-                                                    $retrieveLandlordSQL = "SELECT * FROM payment ORDER BY createddate DESC";
-                                                    $retrieveLandlordResult = mysqli_query($con, $retrieveLandlordSQL);
-                                                    $count = 1;
-                                                    if (mysqli_num_rows($retrieveLandlordResult) > 0) {
-                                                        while ($retrieveLandlordRow = mysqli_fetch_array($retrieveLandlordResult)) {
-                                                            echo '
-                                                            <tr>
-                                                                <td>' . $count . '</td>
-                                                                <td><a href="check-payment.php?paymentid=' . $retrieveLandlordRow['paymentid'] . '">' . $retrieveLandlordRow['tenantname'] . '</a></td>
-                                                                <td>' . $retrieveLandlordRow['propertyname'] . '</td>
-                                                                <td>' . $retrieveLandlordRow['landlordname'] . '</td>
-                                                                <td>' . $retrieveLandlordRow['monthstorent'] . '</td>
-                                                                <td>' . $retrieveLandlordRow['paymenttoagency'] . '</td>
-                                                                <td>' . $retrieveLandlordRow['paymenttolandlord'] . '</td>
-                                                                <td>' . $retrieveLandlordRow['transactionid'] . '</td>
-                                                                 <td>' . $retrieveLandlordRow['totalpayment'] . '</td>
-                                                            </tr>
-                                                            ';
-                                                            $count++;
-                                                        }
-                                                    } else {
-                                                        echo '
-                                                        <tr>
-                                                            <td colspan="11" class="text-bold-500"><marquee>Sorry No Transaction Found</marquee></td>
-                                                        </tr>
-                                                        ';
-                                                    }
-                                                    ?>
+                        <div class="col-4">
+                            <?php
+                            if (isset($_GET['paymentid'])) {
+                                $landlordID = intVal(mysqli_real_escape_string($con, $_GET['paymentid']));
 
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
+                                $retrieveLandlordSQL = "SELECT * from payment WHERE paymentid = $landlordID;";
 
-                                </div>
-                            </div>
+                                $retrieveLandlordResult = mysqli_query($con, $retrieveLandlordSQL);
+
+                                if (mysqli_num_rows($retrieveLandlordResult) > 0) {
+                                    while ($retrieveLandlordRow = mysqli_fetch_array($retrieveLandlordResult)) {
+                                        echo '
+                                            <div class="card">
+                                                <div class="card-content">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">' . $retrieveLandlordRow['tenantname'] . '</h5>
+                                                        </div>
+                                                </div>
+                                                <ul class="list-group list-group-flush">
+                                                    <li class="list-group-item"><strong>Landlord Name:</strong> ' . $retrieveLandlordRow['landlordname'] . '</li>
+                                                    <li class="list-group-item"><strong>Number of Month To Rent:</strong> ' . $retrieveLandlordRow['monthstorent'] . '</li>
+                                                    <li class="list-group-item"><strong>Amount Charged by Agency:</strong> ' . $retrieveLandlordRow['amountchargedbyagency'] . '</li>
+                                                    <li class="list-group-item"><strong>Payment to Agency:</strong> ' . $retrieveLandlordRow['paymenttoagency'] . '</li>
+                                                    <li class="list-group-item"><strong>paymenttolandlord:</strong> ' . $retrieveLandlordRow['paymenttolandlord'] . '</li>
+                                                    <li class="list-group-item"><strong>Total Payment:</strong> ' . $retrieveLandlordRow['totalpayment'] . '</li>
+                                                    <li class="list-group-item"><strong>Transaction ID:</strong> ' . $retrieveLandlordRow['transactionid'] . '</li>
+                                                    <li class="list-group-item"><strong>Month:</strong> ' . $retrieveLandlordRow['month'] . '</li>
+                                                    <li class="list-group-item"><strong>Year:</strong> ' . $retrieveLandlordRow['year'] . '</li>
+                                                    <li class="list-group-item"><strong>Payment Date:</strong> ' . $retrieveLandlordRow['createddate'] . '</li>
+                                                                        
+                                                </ul>
+                                            </div>
+                                            </div>
+                                            
+                                                                
+                                        ';
+                                    }
+                                } else {
+                                    echo '
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item">Sorry No Landlord Records Found ' . mysqli_error($con) . '</li>
+                                        </ul>
+                                                            
+                                    ';
+                                }
+                            }
+
+                            ?>
+
                         </div>
                     </div>
-                    <!-- Table head options end -->
                 </section>
             </div>
 
@@ -156,7 +139,6 @@
                     <div class="float-start">
                         <p>2020 &copy; Voler</p>
                     </div>
-
                 </div>
             </footer>
         </div>
@@ -251,7 +233,7 @@
     });
 </script>
 
-
+</html>
 <div class="modal-primary me-1 mb-1 d-inline-block">
     <!-- Button trigger for primary themes modal -->
     <!-- <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#primary">

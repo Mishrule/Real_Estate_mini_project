@@ -1,82 +1,5 @@
 <?php require_once('../scripts/db.php'); ?>
-<?php 
-	require_once('../scripts/datetime.php');
 
-	$agentMessage = '';
-	if(isset($_POST['submit'])){
-     
-        $agentName = mysqli_real_escape_string($con, $_POST['agentName']);
-        $agentBiography = mysqli_real_escape_string($con, $_POST['agentBiography']);
-        $agentLocation = mysqli_real_escape_string($con, $_POST['agentLocation']);
-        $agentContact = mysqli_real_escape_string($con, $_POST['agentContact']);
-        $agentEmail = mysqli_real_escape_string($con, $_POST['agentEmail']);
-        // $agentImage = mysqli_real_escape_string($con, $_POST['agentImage']);
-        $Image = $_FILES['agentImage']['name'];
-
-		if($agentName == ''){
-			$agentMessage = '
-
-			<div class="alert alert-warning alert-dismissible fade show" role="alert">
-				<strong>Agent Name cannot be empty.</strong>
-			</div>
-			';
-		}else if($agentBiography == ''){
-			$agentMessage = '
-			<div class="alert alert-warning alert-dismissible fade show" role="alert">
-				<strong>Agent Biography Cannot be empty.</strong>
-				
-			</div>
-			';
-		}else if($agentLocation== ''){
-			$agentMessage = '
-			<div class="alert alert-warning alert-dismissible fade show" role="alert">
-				<strong>Agent Location cannot be empty.</strong>
-				
-			</div>
-			';
-		}else if($agentContact == ''){
-			$agentMessage = '
-			<div class="alert alert-warning alert-dismissible fade show" role="alert">
-				<strong>Agent Contact Cannot be empty.</strong>
-				
-			</div>
-			';
-		}else if($Image == ''){
-			$agentMessage = '
-			<div class="alert alert-warning alert-dismissible fade show" role="alert">
-				<strong>Agent Image Cannot be empty.</strong>
-				
-			</div>
-			';
-		}else {
-             
-			
-    		$Target = "assets/images/" . basename($_FILES['agentImage']['name']);
-			$agentRegisterSQL = "INSERT INTO agent VALUES('','$agentName','$agentBiography','$agentLocation','$agentContact','$agentEmail','$Image','$DateTime')";
-
-			$agentRegisterResult = mysqli_query($con, $agentRegisterSQL);
-			move_uploaded_file($_FILES['agentImage']['tmp_name'], $Target);
-
-			if($agentRegisterResult){
-				$agentMessage = '
-			<div class="alert alert-success alert-dismissible fade show" role="alert">
-				<strong>'.$agentName.' Agent Registered Successfully</strong>
-				
-			</div>
-			
-			';
-			header("Refresh:3");
-			}else{
-				$agentMessage = '
-			<div class="alert alert-warning alert-dismissible fade show" role="alert">
-				<strong>'.mysqli_error($con).' Failed to Create Agent</strong>
-				
-			</div>
-			';
-			}
-		}
-	}
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -155,7 +78,7 @@
                     <h3>Payment</h3>
                     <p class="text-subtitle text-muted">Make Payment</p>
                 </div>
-                
+
                 <section class="section">
                     <div class="row mb-4">
                         <div class="col-md-8">
@@ -163,13 +86,13 @@
                                 <div class="card-header">
                                     <h3 class='card-heading p-1 pl-3'>Pay</h3>
                                 </div>
-                                
+
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-md-12 col-12">
-                                        <div class="row" id="notify">
-                                            <?php echo $agentMessage; ?>
-                                        </div>
+                                            <div class="row" id="notify">
+
+                                            </div>
                                             <form class="form form-horizontal" method="POST" action="<?php $_PHP_SELF ?>" enctype="multipart/form-data">
                                                 <div class="form-body">
                                                     <div class="row">
@@ -179,53 +102,53 @@
                                                         <div class="col-md-8 form-group">
                                                             <input type="text" id="tenantName" class="form-control" name="tenantName" placeholder="Name of Tenant">
                                                         </div>
-                                                        
+
                                                         <div class="col-md-4">
                                                             <label>Property Name</label>
                                                         </div>
                                                         <div class="col-md-8 form-group">
-                                                           <select class="form-select" id="propertyname" name="propertyname">
-                                                               <option>Please Select</option>
-                                                           <?php 
+                                                            <select class="form-select" id="propertyname" name="propertyname">
+                                                                <option>Please Select</option>
+                                                                <?php
                                                                 $propSQL = "SELECT * FROM property";
                                                                 $propResult = mysqli_query($con, $propSQL);
-                                                                if(mysqli_num_rows($propResult)>0){
-                                                                    while($propRow = mysqli_fetch_array($propResult)){
-                                                                        echo'
-                                                                            <option value="'.$propRow['propid'].'">'.$propRow['propname'].'</option>
+                                                                if (mysqli_num_rows($propResult) > 0) {
+                                                                    while ($propRow = mysqli_fetch_array($propResult)) {
+                                                                        echo '
+                                                                            <option value="' . $propRow['propid'] . '">' . $propRow['propname'] . '</option>
                                                                         ';
                                                                     }
-                                                                }else{
-                                                                    echo'
+                                                                } else {
+                                                                    echo '
                                                                         <option value="None">None</option>
                                                                     ';
                                                                 }
-                                                            ?>
+                                                                ?>
                                                             </select>
                                                         </div>
-                                                        
+
 
                                                         <div class="col-md-4">
                                                             <label>Name of Landlord</label>
                                                         </div>
                                                         <div class="col-md-8 form-group">
-                                                            
+
                                                             <select class="form-select" id="landlord" name="landlord">
-                                                            <?php 
+                                                                <?php
                                                                 $landlordSQL = "SELECT * FROM landlord";
                                                                 $landlordResult = mysqli_query($con, $landlordSQL);
-                                                                if(mysqli_num_rows($landlordResult)>0){
-                                                                    while($landlordRow = mysqli_fetch_array($landlordResult)){
-                                                                        echo'
-                                                                            <option value="'.$landlordRow['landlordname'].'">'.$landlordRow['landlordname'].'</option>
+                                                                if (mysqli_num_rows($landlordResult) > 0) {
+                                                                    while ($landlordRow = mysqli_fetch_array($landlordResult)) {
+                                                                        echo '
+                                                                            <option value="' . $landlordRow['landlordname'] . '">' . $landlordRow['landlordname'] . '</option>
                                                                         ';
                                                                     }
-                                                                }else{
-                                                                    echo'
+                                                                } else {
+                                                                    echo '
                                                                         <option value="None">None</option>
                                                                     ';
                                                                 }
-                                                            ?>
+                                                                ?>
                                                             </select>
                                                         </div>
                                                         <div class="col-md-4">
@@ -250,10 +173,22 @@
                                                         </div>
 
                                                         <div class="col-md-4">
+                                                            <label>Total Payment to Agency</label>
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <input type="number" id="totalPaymentAgency" class="form-control" name="totalPaymentAgency" placeholder="TotalPayment for Agency" disabled>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <label>Total Payment to LandLord</label>
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <input type="number" id="totalPaymentLandlord" class="form-control" name="totalPaymentLandlord" placeholder="TotalPayment for Landlord" disabled>
+                                                        </div>
+                                                        <div class="col-md-4">
                                                             <label>Total Payment</label>
                                                         </div>
                                                         <div class="col-md-8 form-group">
-                                                            <input type="number" id="totalPayment" class="form-control" name="totalPayment" placeholder="TotalPayment">
+                                                            <input type="number" id="totalPayment" class="form-control" name="totalPayment" placeholder="TotalPayment" disabled>
                                                         </div>
 
 
@@ -266,7 +201,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-12 d-flex justify-content-end">
-                                                            <button type="submit" id="submit" name="submit" class="btn btn-primary me-1 mb-1">Register Agent</button>
+                                                            <button type="button" id="payment" name="payment" value="payment" class="btn btn-primary me-1 mb-1">Make Payment</button>
                                                             <button type="reset" class="btn btn-light-secondary me-1 mb-1">Reset</button>
                                                         </div>
                                                     </div>
@@ -274,7 +209,7 @@
                                             </form>
                                         </div>
                                         <!-- <div class="col-md-8 col-12"> -->
-                                            <!-- <canvas id="bar"></canvas> -->
+                                        <!-- <canvas id="bar"></canvas> -->
                                         <!-- </div> -->
                                     </div>
                                 </div>
@@ -283,35 +218,35 @@
                         <div class="col-md-4">
                             <div class="card ">
                                 <div class="card-header">
-                                    <h4>Last 10 Registered Agent</h4>
+                                    <h4>Last 10 Tenant</h4>
                                 </div>
                                 <div class="card-body">
-                                <ul class="list-group">
-                                <?php 
-                                    $retrieveAgentSQL = "SELECT * FROM agent ORDER BY createddate DESC LIMIT 10";
-                                    $retrieveAgentResult = mysqli_query($con, $retrieveAgentSQL);
-                                    if(mysqli_num_rows($retrieveAgentResult) > 0){
-                                        while($retrieveAgentRow = mysqli_fetch_array($retrieveAgentResult)){
-                                            echo '
+                                    <ul class="list-group">
+                                        <?php
+                                        $retrieveAgentSQL = "SELECT * FROM payment ORDER BY createddate DESC LIMIT 10";
+                                        $retrieveAgentResult = mysqli_query($con, $retrieveAgentSQL);
+                                        if (mysqli_num_rows($retrieveAgentResult) > 0) {
+                                            while ($retrieveAgentRow = mysqli_fetch_array($retrieveAgentResult)) {
+                                                echo '
                                             <li
                                                 class="list-group-item d-flex justify-content-between align-items-center">
-                                                <span> '.$retrieveAgentRow['agentname'].'</span>
-                                                <span class="badge bg-info badge-pill badge-round ml-1">'.$retrieveAgentRow['agentcontact'].'</span>
+                                                <span> ' . $retrieveAgentRow['tenantname'] . '</span>
+                                                <span class="badge bg-info badge-pill badge-round ml-1">' . $retrieveAgentRow['totalpayment'] . '</span>
                                             </li>
                                             ';
-                                        }
-                                    }else{
-                                        echo '
+                                            }
+                                        } else {
+                                            echo '
                                         <li
                                             class="list-group-item d-flex justify-content-between align-items-center">
                                             <span>No Records Found</span>
                                             <span class="badge bg-warning badge-pill badge-round ml-1">0</span>
                                         </li>
                                         ';
-                                    }
-                                ?>
-                                 </ul>       
-       
+                                        }
+                                        ?>
+                                    </ul>
+
                                 </div>
                             </div>
                         </div>
@@ -334,34 +269,112 @@
 
 </html>
 <script>
-    $(document).ready(function(){
-        $('#submit').hide();
-        $('#agentAgreeCheck').click(function(){
-            if($('#agentAgreeCheck').is(':checked')){
-                $('#submit').show();
-            }else{
-                $('#submit').hide();
+    $(document).ready(function() {
+        $('#payment').hide();
+        $('#agentAgreeCheck').click(function() {
+            if ($('#agentAgreeCheck').is(':checked')) {
+                $('#payment').show();
+            } else {
+                $('#payment').hide();
             }
         });
 
-        $('#propertyname').change(function(){
+        $('#propertyname').change(function() {
             var changeRoom = $('#propertyname').val();
             // alert(changeRoom);
             $.ajax({
-                url:'../scripts/makepaymentScript.php',
-                method:'GET',
+                url: '../scripts/makepaymentScript.php',
+                method: 'GET',
                 dataType: 'json',
-                data:{changeRoom},
-                success: function(data){
+                data: {
+                    changeRoom
+                },
+                success: function(data) {
                     $('#amountpermonth').val(data.amountpermonth);
                     $('#amountChargedByAgency').val(data.amountChargedByAgency);
                 }
             })
         });
-        
-        $('#rentmonth').keyup(function(){
+
+        $('#rentmonth').keyup(function() {
+            if ($('#propertyname').val() == "Please Select") {
+                alert("Please Select a property Name");
+                $('#rentmonth').val('');
+            } else {
+                var rentmonth = parseFloat($('#rentmonth').val());
+                var amountMonth = parseFloat($('#amountpermonth').val());
+                var amountCharged = parseFloat($('#amountChargedByAgency').val());
+
+                $('#totalPaymentAgency').val(rentmonth * amountCharged);
+                $('#totalPaymentLandlord').val(rentmonth * amountMonth);
+
+
+
+                var pay = amountMonth + amountCharged;
+                $('#totalPayment').val(rentmonth * pay);
+            }
+        });
+
+        function myMonth() {
+            var month = new Array();
+            month[0] = "January";
+            month[1] = "February";
+            month[2] = "March";
+            month[3] = "April";
+            month[4] = "May";
+            month[5] = "June";
+            month[6] = "July";
+            month[7] = "August";
+            month[8] = "September";
+            month[9] = "October";
+            month[10] = "November";
+            month[11] = "December";
+
+            var d = new Date();
+            return month[d.getMonth()];
+
+        }
+
+        $('#payment').click(function() {
+            var tenantName = $('#tenantName').val();
+            var propertyname = $('#propertyname').val();
+            var landlord = $('#landlord').val();
             var rentmonth = $('#rentmonth').val();
-            alert(rentmonth);
+            var amountpermonth = $('#amountpermonth').val();
+            var amountChargedByAgency = $('#amountChargedByAgency').val();
+            var totalPaymentAgency = $('#totalPaymentAgency').val();
+            var totalPaymentLandlord = $('#totalPaymentLandlord').val();
+            var totalPayment = $('#totalPayment').val();
+            var paymentBTN = $('#payment').val();
+            var date_year = new Date().getFullYear();
+            var transactionid = new Date().getTime();
+            var date_month = myMonth();
+
+            $.ajax({
+                url: '../scripts/makepaymentScript.php',
+                method: 'POST',
+                data: {
+                    tenantName,
+                    propertyname,
+                    landlord,
+                    rentmonth,
+                    amountpermonth,
+                    amountChargedByAgency,
+                    totalPaymentAgency,
+                    totalPaymentLandlord,
+                    totalPayment,
+                    paymentBTN,
+                    date_year,
+                    transactionid,
+                    date_month
+                },
+                success: function(data) {
+                    $('#notify').html(data);
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 5000);
+                }
+            })
         });
     })
 </script>
