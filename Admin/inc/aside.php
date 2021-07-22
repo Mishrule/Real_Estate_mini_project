@@ -423,12 +423,12 @@
                         <li>
                             <a href="app-property-image.php">Add Property Images</a>
                         </li>
-
+                        <!--
                         <li>
                             <a href="auth-register.html">Manage Users</a>
                         </li>
 
-                      <!--  <li>
+                        <li>
                             <a href="auth-forgot-password.html">Forgot Password</a>
                         </li> -->
 
@@ -437,7 +437,7 @@
                 </li>
 
 
-
+<!--
 
                 <li class="sidebar-item  has-sub">
                     <a href="#" class="sidebar-link">
@@ -464,7 +464,7 @@
                 </li>
 
 
-
+-->
 
             </ul>
         </div>

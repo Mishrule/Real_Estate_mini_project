@@ -1,3 +1,4 @@
+<?php require_once('scripts/db.php')?>s
 <!DOCTYPE html>
 <html lang="en">
 
@@ -122,7 +123,7 @@
             </div>
           </div>
           <div class="col-md-12">
-            <button type="submit" class="btn btn-b">Search Property</button>
+            <button type="button" id="search" name="search" class="btn btn-b">Search Property</button>
           </div>
         </div>
       </form>
@@ -214,16 +215,102 @@
         <div class="row">
           <div class="col-sm-12">
             <div class="grid-option">
-              <form>
+              <!-- <form>
                 <select class="custom-select">
                   <option selected>All</option>
                   <option value="1">New to Old</option>
                   <option value="2">For Rent</option>
                   <option value="3">For Sale</option>
                 </select>
-              </form>
+              </form> -->
             </div>
           </div>
+          <?php 
+        $propStaticSQL = "SELECT * FROM property";
+        $propStaticResult = mysqli_query($con, $propStaticSQL);
+        if(mysqli_num_rows($propStaticResult)>0){
+          while($propStaticRow = mysqli_fetch_array($propStaticResult)){
+            echo '
+        <div class="col-md-4">
+            <div class="card-box-a card-shadow">
+              <div class="img-box-a">
+                <img src="Admin/assets/images/'.$propStaticRow['propimage'].'" alt="" class="img-a img-fluid">
+              </div>
+              <div class="card-overlay">
+                <div class="card-overlay-a-content">
+                  <div class="card-header-a">
+                    <h2 class="card-title-a">
+                      <a href="#">'.$propStaticRow['propname'].'</a>
+                    </h2>
+                  </div>
+                  <div class="card-body-a">
+                    <div class="price-box d-flex">
+                      <span class="price-a">rent | $ '.$propStaticRow['proptotal'].'</span>
+                    </div>
+                    <a href="property-single.php?propid='.$propStaticRow['proptotal'].'" class="link-a">Click here to view
+                      <span class="bi bi-chevron-right"></span>
+                    </a>
+                  </div>
+                  <div class="card-footer-a">
+                    <ul class="card-info d-flex justify-content-around">
+                      <li>
+                        <h4 class="card-info-title">Num of Rooms</h4>
+                        <span>'.$propStaticRow['proprooms'].'
+                        </span>
+                      </li>
+                      <li>
+                        <h4 class="card-info-title">Water</h4>
+                        <span>'.$propStaticRow['propwater'].'</span>
+                      </li>
+                      <li>
+                        <h4 class="card-info-title">Floor</h4>
+                        <span>'.$propStaticRow['propfloortype'].'</span>
+                      </li>
+                      <li>
+                        <h4 class="card-info-title">Status</h4>
+                        <span>'.$propStaticRow['propstatus'].'</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+            ';
+          }
+        }else{
+          echo'
+          <div class="col-md-4">
+            <div class="card-box-a card-shadow">
+              <div class="img-box-a">
+                <img src="assets/img/property-1.jpg" alt="" class="img-a img-fluid">
+              </div>
+              <div class="card-overlay">
+                <div class="card-overlay-a-content">
+                  <div class="card-header-a">
+                    <h2 class="card-title-a">
+                      <a href="#">Sorry
+                        <br /> No Property Found</a>
+                    </h2>
+                  </div>
+                  <div class="card-body-a">
+                    <div class="price-box d-flex">
+                      <span class="price-a"></span>
+                    </div>
+                    
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+          ';
+        }
+      
+      ?>
+      <!--
           <div class="col-md-4">
             <div class="card-box-a card-shadow">
               <div class="img-box-a">
@@ -506,7 +593,9 @@
               </div>
             </div>
           </div>
+      -->
         </div>
+      <!--
         <div class="row">
           <div class="col-sm-12">
             <nav class="pagination-a">
@@ -534,6 +623,7 @@
             </nav>
           </div>
         </div>
+      -->
       </div>
     </section><!-- End Property Grid Single-->
 
@@ -703,6 +793,7 @@
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/php-email-form/validate.js"></script>
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="Admin/assets/js/jquery.js"></script>
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
@@ -710,3 +801,10 @@
 </body>
 
 </html>
+<script>
+  $(document).ready(function(){
+    $('#search').click(function(){
+      alert("Sorry This Feature is currently not Active\nIt will be available in the upcoming update");
+    })
+  })
+</script>

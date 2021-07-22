@@ -1,3 +1,4 @@
+<?php require_once('scripts/db.php')?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -184,7 +185,71 @@
   <div class="intro intro-carousel swiper-container position-relative">
 
     <div class="swiper-wrapper">
-
+      <?php 
+        $propCarouselSQL = "SELECT * FROM property";
+        $propCarouselResult = mysqli_query($con, $propCarouselSQL);
+        if(mysqli_num_rows($propCarouselResult)>0){
+          while($propCarouselRow = mysqli_fetch_array($propCarouselResult)){
+            echo '
+            <div class="swiper-slide carousel-item-a intro-item bg-image" style="background-image: url(Admin/assets/images/'.$propCarouselRow['propimage'].')">
+            <div class="overlay overlay-a"></div>
+            <div class="intro-content display-table">
+              <div class="table-cell">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-lg-8">
+                      <div class="intro-body">
+                        <p class="intro-title-top">'.$propCarouselRow['propDescription'].'
+                          <br> 
+                        </p>
+                        <h1 class="intro-title mb-4">
+                          <span class="color-b">'.$propCarouselRow['propname'].' </span> 
+                          <br> '.$propCarouselRow['propstatus'].'
+                        </h1>
+                        <p class="intro-subtitle intro-price">
+                          <a href="#"><span class="price-a">rent | $ '.$propCarouselRow['proptotal'].'</span></a>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+            ';
+          }
+        }else{
+          echo'
+          <div class="swiper-slide carousel-item-a intro-item bg-image" style="background-image: url(assets/img/slide-1.jpg)">
+          <div class="overlay overlay-a"></div>
+          <div class="intro-content display-table">
+            <div class="table-cell">
+              <div class="container">
+                <div class="row">
+                  <div class="col-lg-8">
+                    <div class="intro-body">
+                      <p class="intro-title-top">Sorry
+                        <br> No
+                      </p>
+                      <h1 class="intro-title mb-4 ">
+                        <span class="color-b">204 </span> Property
+                        <br> Created Yet
+                      </h1>
+                      <p class="intro-subtitle intro-price">
+                        <a href="#"><span class="price-a">Consult Agency</span></a>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+          ';
+        }
+      
+      ?>
+      <!--
       <div class="swiper-slide carousel-item-a intro-item bg-image" style="background-image: url(assets/img/slide-1.jpg)">
         <div class="overlay overlay-a"></div>
         <div class="intro-content display-table">
@@ -259,7 +324,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
     <div class="swiper-pagination"></div>
   </div><!-- End Intro Section -->
@@ -365,7 +430,7 @@
                 <h2 class="title-a">Latest Properties</h2>
               </div>
               <div class="title-link">
-                <a href="property-grid.html">All Property
+                <a href="property-grid.php">All Property
                   <span class="bi bi-chevron-right"></span>
                 </a>
               </div>
@@ -375,8 +440,64 @@
 
         <div id="property-carousel" class="swiper-container">
           <div class="swiper-wrapper">
+          <?php 
+        $propStaticSQL = "SELECT * FROM property";
+        $propStaticResult = mysqli_query($con, $propStaticSQL);
+        if(mysqli_num_rows($propStaticResult)>0){
+          while($propStaticRow = mysqli_fetch_array($propStaticResult)){
+            echo '
+           
 
-            <div class="carousel-item-b swiper-slide">
+          <div class="carousel-item-b swiper-slide">
+          <div class="card-box-a card-shadow">
+            <div class="img-box-a">
+              <img src="Admin/assets/images/'.$propStaticRow['propimage'].'" alt="" class="img-a img-fluid">
+            </div>
+            <div class="card-overlay">
+              <div class="card-overlay-a-content">
+                <div class="card-header-a">
+                  <h2 class="card-title-a">
+                    <a href="property-single.html">'.$propStaticRow['propname'].'</a>
+                  </h2>
+                </div>
+                <div class="card-body-a">
+                  <div class="price-box d-flex">
+                    <span class="price-a">rent | $ '.$propStaticRow['proptotal'].'</span>
+                  </div>
+                  <a href="property-single.php?propid='.$propStaticRow['propid'].'" class="link-a">Click here to view
+                    <span class="bi bi-chevron-right"></span>
+                  </a>
+                </div>
+                <div class="card-footer-a">
+                  <ul class="card-info d-flex justify-content-around">
+                    <li>
+                      <h4 class="card-info-title">Num of Rooms</h4>
+                      <span>'.$propStaticRow['proprooms'].'
+                      </span>
+                    </li>
+                    <li>
+                      <h4 class="card-info-title">Water</h4>
+                      <span>'.$propStaticRow['propwater'].'</span>
+                    </li>
+                    <li>
+                      <h4 class="card-info-title">Floor</h4>
+                      <span>'.$propStaticRow['propfloortype'].'</span>
+                    </li>
+                    <li>
+                      <h4 class="card-info-title">Status</h4>
+                      <span>'.$propStaticRow['propstatus'].'</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+            ';
+          }
+        }else{
+          echo'
+          <div class="carousel-item-b swiper-slide">
               <div class="card-box-a card-shadow">
                 <div class="img-box-a">
                   <img src="assets/img/property-6.jpg" alt="" class="img-a img-fluid">
@@ -385,188 +506,28 @@
                   <div class="card-overlay-a-content">
                     <div class="card-header-a">
                       <h2 class="card-title-a">
-                        <a href="property-single.html">206 Mount
-                          <br /> Olive Road Two</a>
+                        <a href="property-single.html">Sorry
+                          <br /> No Properties Found</a>
                       </h2>
                     </div>
                     <div class="card-body-a">
                       <div class="price-box d-flex">
-                        <span class="price-a">rent | $ 12.000</span>
+                       
                       </div>
                       <a href="#" class="link-a">Click here to view
                         <span class="bi bi-chevron-right"></span>
                       </a>
                     </div>
-                    <div class="card-footer-a">
-                      <ul class="card-info d-flex justify-content-around">
-                        <li>
-                          <h4 class="card-info-title">Area</h4>
-                          <span>340m
-                            <sup>2</sup>
-                          </span>
-                        </li>
-                        <li>
-                          <h4 class="card-info-title">Beds</h4>
-                          <span>2</span>
-                        </li>
-                        <li>
-                          <h4 class="card-info-title">Baths</h4>
-                          <span>4</span>
-                        </li>
-                        <li>
-                          <h4 class="card-info-title">Garages</h4>
-                          <span>1</span>
-                        </li>
-                      </ul>
-                    </div>
+                    
                   </div>
                 </div>
               </div>
-            </div><!-- End carousel item -->
-
-            <div class="carousel-item-b swiper-slide">
-              <div class="card-box-a card-shadow">
-                <div class="img-box-a">
-                  <img src="assets/img/property-3.jpg" alt="" class="img-a img-fluid">
-                </div>
-                <div class="card-overlay">
-                  <div class="card-overlay-a-content">
-                    <div class="card-header-a">
-                      <h2 class="card-title-a">
-                        <a href="property-single.html">157 West
-                          <br /> Central Park</a>
-                      </h2>
-                    </div>
-                    <div class="card-body-a">
-                      <div class="price-box d-flex">
-                        <span class="price-a">rent | $ 12.000</span>
-                      </div>
-                      <a href="property-single.html" class="link-a">Click here to view
-                        <span class="bi bi-chevron-right"></span>
-                      </a>
-                    </div>
-                    <div class="card-footer-a">
-                      <ul class="card-info d-flex justify-content-around">
-                        <li>
-                          <h4 class="card-info-title">Area</h4>
-                          <span>340m
-                            <sup>2</sup>
-                          </span>
-                        </li>
-                        <li>
-                          <h4 class="card-info-title">Beds</h4>
-                          <span>2</span>
-                        </li>
-                        <li>
-                          <h4 class="card-info-title">Baths</h4>
-                          <span>4</span>
-                        </li>
-                        <li>
-                          <h4 class="card-info-title">Garages</h4>
-                          <span>1</span>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div><!-- End carousel item -->
-
-            <div class="carousel-item-b swiper-slide">
-              <div class="card-box-a card-shadow">
-                <div class="img-box-a">
-                  <img src="assets/img/property-7.jpg" alt="" class="img-a img-fluid">
-                </div>
-                <div class="card-overlay">
-                  <div class="card-overlay-a-content">
-                    <div class="card-header-a">
-                      <h2 class="card-title-a">
-                        <a href="property-single.html">245 Azabu
-                          <br /> Nishi Park let</a>
-                      </h2>
-                    </div>
-                    <div class="card-body-a">
-                      <div class="price-box d-flex">
-                        <span class="price-a">rent | $ 12.000</span>
-                      </div>
-                      <a href="property-single.html" class="link-a">Click here to view
-                        <span class="bi bi-chevron-right"></span>
-                      </a>
-                    </div>
-                    <div class="card-footer-a">
-                      <ul class="card-info d-flex justify-content-around">
-                        <li>
-                          <h4 class="card-info-title">Area</h4>
-                          <span>340m
-                            <sup>2</sup>
-                          </span>
-                        </li>
-                        <li>
-                          <h4 class="card-info-title">Beds</h4>
-                          <span>2</span>
-                        </li>
-                        <li>
-                          <h4 class="card-info-title">Baths</h4>
-                          <span>4</span>
-                        </li>
-                        <li>
-                          <h4 class="card-info-title">Garages</h4>
-                          <span>1</span>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div><!-- End carousel item -->
-
-            <div class="carousel-item-b swiper-slide">
-              <div class="card-box-a card-shadow">
-                <div class="img-box-a">
-                  <img src="assets/img/property-10.jpg" alt="" class="img-a img-fluid">
-                </div>
-                <div class="card-overlay">
-                  <div class="card-overlay-a-content">
-                    <div class="card-header-a">
-                      <h2 class="card-title-a">
-                        <a href="property-single.html">204 Montal
-                          <br /> South Bela Two</a>
-                      </h2>
-                    </div>
-                    <div class="card-body-a">
-                      <div class="price-box d-flex">
-                        <span class="price-a">rent | $ 12.000</span>
-                      </div>
-                      <a href="property-single.html" class="link-a">Click here to view
-                        <span class="bi bi-chevron-right"></span>
-                      </a>
-                    </div>
-                    <div class="card-footer-a">
-                      <ul class="card-info d-flex justify-content-around">
-                        <li>
-                          <h4 class="card-info-title">Area</h4>
-                          <span>340m
-                            <sup>2</sup>
-                          </span>
-                        </li>
-                        <li>
-                          <h4 class="card-info-title">Beds</h4>
-                          <span>2</span>
-                        </li>
-                        <li>
-                          <h4 class="card-info-title">Baths</h4>
-                          <span>4</span>
-                        </li>
-                        <li>
-                          <h4 class="card-info-title">Garages</h4>
-                          <span>1</span>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div><!-- End carousel item -->
+            </div>
+          ';
+        }
+      
+      ?>
+          
           </div>
         </div>
         <div class="propery-carousel-pagination carousel-pagination"></div>
@@ -592,6 +553,103 @@
           </div>
         </div>
         <div class="row">
+        <?php 
+        $propAgentSQL = "SELECT * FROM agent";
+        $propAgentResult = mysqli_query($con, $propAgentSQL);
+        if(mysqli_num_rows($propAgentResult)>0){
+          while($propAgentRow = mysqli_fetch_array($propAgentResult)){
+            echo '
+           
+        <div class="col-md-4">
+        <div class="card-box-d">
+          <div class="card-img-d">
+            <img src="Admin/assets/images/'.$propAgentRow['agentimage'].'" alt="" class="img-d img-fluid">
+          </div>
+          <div class="card-overlay card-overlay-hover">
+            <div class="card-header-d">
+              <div class="card-title-d align-self-center">
+                <h3 class="title-d">
+                  <a href="agent-single.php" class="link-two">'.$propAgentRow['agentname'].'</a>
+                </h3>
+              </div>
+            </div>
+            <div class="card-body-d">
+              <p class="content-d color-text-a">
+              '.$propAgentRow['agentbio'].'
+              </p>
+              <div class="info-agents color-a">
+                <p>
+                  <strong>Phone: </strong> '.$propAgentRow['agentcontact'].'
+                </p>
+                <p>
+                  <strong>Email: </strong> '.$propAgentRow['agentemail'].'
+                </p>
+                <p>
+                  <strong>Location: </strong> '.$propAgentRow['agentlocation'].'
+                </p>
+              </div>
+            </div>
+          <!--  <div class="card-footer-d">
+              <div class="socials-footer d-flex justify-content-center">
+                <ul class="list-inline">
+                  <li class="list-inline-item">
+                    <a href="#" class="link-one">
+                      <i class="bi bi-facebook" aria-hidden="true"></i>
+                    </a>
+                  </li>
+                  <li class="list-inline-item">
+                    <a href="#" class="link-one">
+                      <i class="bi bi-twitter" aria-hidden="true"></i>
+                    </a>
+                  </li>
+                  <li class="list-inline-item">
+                    <a href="#" class="link-one">
+                      <i class="bi bi-instagram" aria-hidden="true"></i>
+                    </a>
+                  </li>
+                  <li class="list-inline-item">
+                    <a href="#" class="link-one">
+                      <i class="bi bi-linkedin" aria-hidden="true"></i>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div> 
+          -->
+          </div>
+        </div>
+      </div>
+
+            ';
+          }
+        }else{
+          echo'
+          <div class="col-md-4">
+            <div class="card-box-d">
+              <div class="card-img-d">
+                <img src="assets/img/agent-4.jpg" alt="" class="img-d img-fluid">
+              </div>
+              <div class="card-overlay card-overlay-hover">
+                <div class="card-header-d">
+                  <div class="card-title-d align-self-center">
+                    <h3 class="title-d">
+                      <a href="agent-single.html" class="link-two">Sorry
+                        <br> No Agent Registered Yet</a>
+                    </h3>
+                  </div>
+                </div>
+                <div class="card-body-d">
+                  
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          ';
+        }
+      
+      ?>
+      <!--
           <div class="col-md-4">
             <div class="card-box-d">
               <div class="card-img-d">
@@ -760,11 +818,12 @@
               </div>
             </div>
           </div>
+      -->
         </div>
       </div>
     </section><!-- End Agents Section -->
 
-    <!-- ======= Latest News Section ======= -->
+    <!-- ======= Latest News Section ======= 
     <section class="section-news section-t8">
       <div class="container">
         <div class="row">
@@ -807,7 +866,7 @@
                   </div>
                 </div>
               </div>
-            </div><!-- End carousel item -->
+            </div><!-- End carousel item 
 
             <div class="carousel-item-c swiper-slide">
               <div class="card-box-b card-shadow news-box">
@@ -831,7 +890,7 @@
                   </div>
                 </div>
               </div>
-            </div><!-- End carousel item -->
+            </div><!-- End carousel item 
 
             <div class="carousel-item-c swiper-slide">
               <div class="card-box-b card-shadow news-box">
@@ -855,7 +914,7 @@
                   </div>
                 </div>
               </div>
-            </div><!-- End carousel item -->
+            </div><!-- End carousel item 
 
             <div class="carousel-item-c swiper-slide">
               <div class="card-box-b card-shadow news-box">
@@ -879,7 +938,7 @@
                   </div>
                 </div>
               </div>
-            </div><!-- End carousel item -->
+            </div><!-- End carousel item
 
           </div>
         </div>
@@ -887,7 +946,7 @@
         <div class="news-carousel-pagination carousel-pagination"></div>
       </div>
     </section>
-    <!-- End Latest News Section -->
+     End Latest News Section -->
 
     <!-- ======= Testimonials Section ======= -->
     <section class="section-testimonials section-t8 nav-arrow-a">
@@ -904,7 +963,74 @@
 
         <div id="testimonial-carousel" class="swiper-container">
           <div class="swiper-wrapper">
+          <?php 
+        $propTestiSQL = "SELECT * FROM testimonial";
+        $propTestiResult = mysqli_query($con, $propTestiSQL);
+        if(mysqli_num_rows($propTestiResult)>0){
+          while($propTestiRow = mysqli_fetch_array($propTestiResult)){
+            echo '
 
+        <div class="carousel-item-a swiper-slide">
+        <div class="testimonials-box">
+          <div class="row">
+            <div class="col-sm-12 col-md-6">
+              <div class="testimonial-img">
+                <img src="Admin/assets/images/'.$propTestiRow['testimonalimage'].'" alt="" class="img-fluid">
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-6">
+              <div class="testimonial-ico">
+                <i class="bi bi-chat-quote-fill"></i>
+              </div>
+              <div class="testimonials-content">
+                <p class="testimonial-text">
+                '.$propTestiRow['testimonaldescription'].'
+                </p>
+              </div>
+              <div class="testimonial-author-box">
+                <img src="Admin/assets/images/'.$propTestiRow['testimonalimage'].'" alt="" class="testimonial-avatar">
+                <h5 class="testimonial-author">'.$propTestiRow['testimonalname'].'</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+            ';
+          }
+        }else{
+          echo'
+          <div class="carousel-item-a swiper-slide">
+              <div class="testimonials-box">
+                <div class="row">
+                  <div class="col-sm-12 col-md-6">
+                    <div class="testimonial-img">
+                      <img src="assets/img/testimonial-1.jpg" alt="" class="img-fluid">
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-md-6">
+                    <div class="testimonial-ico">
+                      <i class="bi bi-chat-quote-fill"></i>
+                    </div>
+                    <div class="testimonials-content">
+                      <p class="testimonial-text">
+                        Sorry There is no Testimonial at the Momoent
+                      </p>
+                    </div>
+                    <div class="testimonial-author-box">
+                      <img src="assets/img/mini-testimonial-1.jpg" alt="" class="testimonial-avatar">
+                      <h5 class="testimonial-author">None</h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ';
+        }
+      
+      ?>
+<!--
             <div class="carousel-item-a swiper-slide">
               <div class="testimonials-box">
                 <div class="row">
@@ -931,7 +1057,7 @@
                   </div>
                 </div>
               </div>
-            </div><!-- End carousel item -->
+            </div> End carousel item 
 
             <div class="carousel-item-a swiper-slide">
               <div class="testimonials-box">
@@ -959,7 +1085,7 @@
                   </div>
                 </div>
               </div>
-            </div><!-- End carousel item -->
+            </div> End carousel item -->
 
           </div>
         </div>
