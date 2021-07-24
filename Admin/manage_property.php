@@ -365,6 +365,7 @@
                                                     <tr>
                                                         <th>S/N</th>
                                                         <th>NAME</th>
+                                                        <th>PROPERTY ID</th>
                                                         <th>DESCRIPTION</th>
                                                         <th>LOCATION</th>
                                                         <th>ROOMS</th>
@@ -387,6 +388,7 @@
                                                             <tr>
                                                                 <td>' . $count . '</td>
                                                                 <td><a href="view_property.php?propid=' . $retrievePropRow['propid'] . '">' . $retrievePropRow['propname'] . '</a></td>
+                                                                <td>' . $retrievePropRow['propid'] . '</td>
                                                                 <td>' . $retrievePropRow['propDescription'] . '</td>
                                                                 <td>' . $retrievePropRow['proplocation'] . '</td>
                                                                 <td>' . $retrievePropRow['proprooms'] . '</td>

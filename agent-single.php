@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Rabdan Real Estate - Property-Single</title>
+  <title>Rabdan Real Estate - Agent Single</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -139,7 +139,7 @@
         <ul class="navbar-nav">
 
           <li class="nav-item">
-            <a class="nav-link" href="index.php">Home</a>
+            <a class="nav-link " href="index.php">Home</a>
           </li>
 
           <li class="nav-item">
@@ -164,190 +164,126 @@
 
     <!-- ======= Intro Single ======= -->
     <section class="intro-single">
+      <div class="container">
 
-    <?php 
-        $propid = $_GET['propid'];
-        $propCarouselSQL = "SELECT * FROM property WHERE propid='$propid'";
-        $propCarouselResult = mysqli_query($con, $propCarouselSQL);
-        if(mysqli_num_rows($propCarouselResult)>0){
-          while($propCarouselRow = mysqli_fetch_array($propCarouselResult)){
+      <?php 
+        $agent = $_GET['agentid'];
+        $propAgentSQL = "SELECT * FROM agent WHERE agentid=$agent";
+        $propAgentResult = mysqli_query($con, $propAgentSQL);
+        if(mysqli_num_rows($propAgentResult)>0){
+          while($propAgentRow = mysqli_fetch_array($propAgentResult)){
             echo '
-            
-          <div class="container">
-          <div class="row">
-            <div class="col-md-12 col-lg-8">
-              <div class="title-single-box">
-                <h1 class="title-single">'.$propCarouselRow['propname'].'</h1>
-                <span class="color-text-a">'.$propCarouselRow['proplocation'].'</span>
-              </div>
-            </div>
-            <div class="col-md-12 col-lg-4">
-              <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
-                <ol class="breadcrumb">
-                  <li class="breadcrumb-item">
-                    <a href="index.php">Home</a>
-                  </li>
-                  <li class="breadcrumb-item">
-                    <a href="property-grid.php">Properties</a>
-                  </li>
-                  <li class="breadcrumb-item active" aria-current="page">
-                  '.$propCarouselRow['propname'].'
-                  </li>
-                </ol>
-              </nav>
+
+            <div class="row">
+          <div class="col-md-12 col-lg-8">
+            <div class="title-single-box">
+              <h1 class="title-single">'.$propAgentRow['agentname'].'</h1>
+              <span class="color-text-a">'.$propAgentRow['agentcontact'].'</span>
             </div>
           </div>
+          <div class="col-md-12 col-lg-4">
+            <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                  <a href="index.php">Home</a>
+                </li>
+                <li class="breadcrumb-item">
+                  <a href="#">Agents</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                '.$propAgentRow['agentname'].'
+                </li>
+              </ol>
+            </nav>
+          </div>
         </div>
-  
+
         <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-lg-8">
-              <div id="property-single-carousel" class="swiper-container">
-                <div class="swiper-wrapper">
-                  <div class="carousel-item-b swiper-slide">
-                    <img src="Admin/assets/images/'.$propCarouselRow['propimage'].'" alt="">
-                  </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="agent-avatar-box">
+                  <img src="Admin/assets/images/'.$propAgentRow['agentimage'].'" alt="" class="agent-avatar img-fluid">
                 </div>
               </div>
-              <div class="property-single-carousel-pagination carousel-pagination"></div>
-            </div>
-          </div>
-  
-          <div class="row">
-            <div class="col-sm-12">
-  
-              <div class="row justify-content-between">
-                <div class="col-md-5 col-lg-4">
-                  <div class="property-price d-flex justify-content-center foo">
-                    <div class="card-header-c d-flex">
-                      <div class="card-box-ico">
-                        <span class="bi bi-cash">$</span>
-                      </div>
-                      <div class="card-title-c align-self-center">
-                        <h5 class="title-c">'.$propCarouselRow['proptotal'].'</h5>
-                      </div>
+              <div class="col-md-5 section-md-t3">
+                <div class="agent-info-box">
+                  <div class="agent-title">
+                    <div class="title-box-d">
+                      <h3 class="title-d">'.$propAgentRow['agentname'].'
+                      </h3>
                     </div>
                   </div>
-                  <div class="property-summary">
-                    <div class="row">
-                      <div class="col-sm-12">
-                        <div class="title-box-d section-t4">
-                          <h3 class="title-d">'.$propCarouselRow['propname'].'</h3>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="summary-list">
-                      <ul class="list">
-                        <li class="d-flex justify-content-between">
-                          <strong>Property ID:</strong>
-                          <span>'.$propCarouselRow['propid'].'</span>
-                        </li>
-                        <li class="d-flex justify-content-between">
-                          <strong>Location:</strong>
-                          <span>'.$propCarouselRow['proplocation'].'</span>
-                        </li>
-                        <li class="d-flex justify-content-between">
-                          <strong>Floor Type:</strong>
-                          <span>'.$propCarouselRow['propfloortype'].'</span>
-                        </li>
-                        <li class="d-flex justify-content-between">
-                          <strong>Status:</strong>
-                          <span>'.$propCarouselRow['propstatus'].'</span>
-                        </li>
-                        <li class="d-flex justify-content-between">
-                          <strong>Water:</strong>
-                          <span>'.$propCarouselRow['propwater'].'
-                          </span>
-                        </li>
-                        <li class="d-flex justify-content-between">
-                          <strong>Beds:</strong>
-                          <span>'.$propCarouselRow['proprooms'].'</span>
-                        </li>
-                        <li class="d-flex justify-content-between">
-                          <strong>Baths:</strong>
-                          <span>'.$propCarouselRow['propbathrooms'].'</span>
-                        </li>
-                        <li class="d-flex justify-content-between">
-                          <strong>Garage:</strong>
-                          <span>'.$propCarouselRow['propgarage'].'</span>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-7 col-lg-7 section-md-t3">
-                  <div class="row">
-                    <div class="col-sm-12">
-                      <div class="title-box-d">
-                        <h3 class="title-d">Property Description</h3>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="property-description">
-                    <p class="description color-text-a">
-                    '.$propCarouselRow['propDescription'].'
+                  <div class="agent-content mb-3">
+                    <p class="content-d color-text-a">
+                    '.$propAgentRow['agentbio'].'
                     </p>
-                    
+                    <div class="info-agents color-a">
+                      <p>
+                        <strong>Agent Location: </strong>
+                        <span class="color-text-a"> '.$propAgentRow['agentlocation'].' </span>
+                      </p>
+                      <p>
+                        <strong>Agent Contact: </strong>
+                        <span class="color-text-a"> '.$propAgentRow['agentcontact'].'</span>
+                      </p>
+                      <p>
+                        <strong>Email: </strong>
+                        <span class="color-text-a"> '.$propAgentRow['agentemail'].'</span>
+                      </p>
+                      <p>
+                        <strong>Created Date: </strong>
+                        <span class="color-text-a"> '.$propAgentRow['createddate'].'</span>
+                      </p>
+                    </div>
                   </div>
+                  <div class="socials-footer">
                   
-                </div>
-              </div>
-            </div>
-            
-            <div class="col-md-12">
-              <div class="row section-t3">
-                <div class="col-sm-12">
-                  <div class="title-box-d">
-                   
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-
-
-
+      </div>
 
             ';
           }
         }else{
           echo'
-          <div class="swiper-slide carousel-item-a intro-item bg-image" style="background-image: url(assets/img/slide-1.jpg)">
-          <div class="overlay overlay-a"></div>
-          <div class="intro-content display-table">
-            <div class="table-cell">
-              <div class="container">
-                <div class="row">
-                  <div class="col-lg-8">
-                    <div class="intro-body">
-                      <p class="intro-title-top">Sorry
-                        <br> No
-                      </p>
-                      <h1 class="intro-title mb-4 ">
-                        <span class="color-b">No </span> Property
-                        <br> Created Yet
-                      </h1>
-                      <p class="intro-subtitle intro-price">
-                        <a href="#"><span class="price-a">Consult Agency</span></a>
-                      </p>
-                    </div>
+          <div class="col-md-4">
+            <div class="card-box-d">
+              <div class="card-img-d">
+                <img src="assets/img/agent-4.jpg" alt="" class="img-d img-fluid">
+              </div>
+              <div class="card-overlay card-overlay-hover">
+                <div class="card-header-d">
+                  <div class="card-title-d align-self-center">
+                    <h3 class="title-d">
+                      <a href="agent-single.php" class="link-two">Sorry
+                        <br> No Agent Registered Yet</a>
+                    </h3>
+                  </div>
+                </div>
+                <div class="card-body-d">
+                  
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
           ';
         }
       
       ?>
+      </div>
+    </section><!-- End Intro Single -->
 
-      
-
-    </section><!-- End Intro Single-->
-
-    <!-- ======= Property Single ======= -->
+    <!-- ======= Agent Single ======= -->
+    <section class="agent-single">
+     
+    </section><!-- End Agent Single -->
 
   </main><!-- End #main -->
 

@@ -104,6 +104,13 @@
                                                         </div>
 
                                                         <div class="col-md-4">
+                                                            <label>Tenant Contact</label>
+                                                        </div>
+                                                        <div class="col-md-8 form-group">
+                                                            <input type="number" id="tenantContact" class="form-control" name="tenantContact" placeholder="Tenat Contact">
+                                                        </div>
+
+                                                        <div class="col-md-4">
                                                             <label>Property Name</label>
                                                         </div>
                                                         <div class="col-md-8 form-group">
@@ -337,6 +344,7 @@
 
         $('#payment').click(function() {
             var tenantName = $('#tenantName').val();
+            var tenantContact = $('#tenantContact').val();
             var propertyname = $('#propertyname').val();
             var landlord = $('#landlord').val();
             var rentmonth = $('#rentmonth').val();
@@ -355,6 +363,7 @@
                 method: 'POST',
                 data: {
                     tenantName,
+                    tenantContact,
                     propertyname,
                     landlord,
                     rentmonth,

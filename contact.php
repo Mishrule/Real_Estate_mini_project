@@ -1,3 +1,70 @@
+<?php 
+	require_once('scripts/db.php');
+
+	$contactMessage = '';
+	if(isset($_POST['submit'])){
+
+        $contactname = mysqli_real_escape_string($con, $_POST['name']);
+        $contactemail = mysqli_real_escape_string($con, $_POST['email']);
+        $contactsubject = mysqli_real_escape_string($con, $_POST['subject']);
+        $contactmessage = mysqli_real_escape_string($con, $_POST['message']);
+        
+
+		// $propIndexNumber = mysqli_real_escape_string($con, $_POST['propIndexNumber']);
+
+		if($contactname == ''){
+			$contactMessage = '
+
+			<div class="alert alert-warning alert-dismissible fade show" role="alert">
+				<strong>contact Name cannot be empty.</strong>
+			</div>
+			';
+		}else if($contactemail == ''){
+			$contactMessage = '
+			<div class="alert alert-warning alert-dismissible fade show" role="alert">
+				<strong>Email Cannot be Empty.</strong>
+				
+			</div>
+			';
+		}else if($contactsubject== ''){
+			$contactMessage = '
+			<div class="alert alert-warning alert-dismissible fade show" role="alert">
+				<strong>Subject cannot be Empty.</strong>
+				
+			</div>
+			';
+		}else if($contactmessage == ''){
+			$contactMessage = '
+			<div class="alert alert-warning alert-dismissible fade show" role="alert">
+				<strong>Message cannot be Empty.</strong>
+				
+			</div>
+			';
+		}else {
+
+			$propRegisterSQL = "INSERT INTO contact VALUES('$contactname','$contactemail','$contactsubject','$contactmessage','$DateTime')";
+
+			$propRegisterResult = mysqli_query($con, $propRegisterSQL);
+			
+			if($propRegisterResult){
+				$contactMessage = '
+			<div class="alert alert-success alert-dismissible fade show" role="alert">
+				<strong>'.$contactName.' Message Sent Successfully</strong>
+			</div>
+			
+			';
+			header("Refresh:3");
+			}else{
+				$contactMessage = '
+			<div class="alert alert-warning alert-dismissible fade show" role="alert">
+				<strong>'.mysqli_error($con).' Failed to Create contact</strong>
+				
+			</div>
+			';
+			}
+		}
+	}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,12 +72,12 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>EstateAgency Bootstrap Template - Index</title>
+  <title>Rabdan Real Estate - Contact Us</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
+  <link href="Admin/assets/images/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
@@ -25,12 +92,7 @@
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
 
-  <!-- =======================================================
-  * Template Name: EstateAgency - v4.3.0
-  * Template URL: https://bootstrapmade.com/real-estate-agency-bootstrap-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+
 </head>
 
 <body>
@@ -137,45 +199,29 @@
         <span></span>
         <span></span>
       </button>
-      <a class="navbar-brand text-brand" href="index.html">Estate<span class="color-b">Agency</span></a>
+      <a class="navbar-brand text-brand" href="index.php">Rabdan Real <span class="color-b">Estate</span></a>
 
       <div class="navbar-collapse collapse justify-content-center" id="navbarDefault">
         <ul class="navbar-nav">
 
           <li class="nav-item">
-            <a class="nav-link " href="index.html">Home</a>
+            <a class="nav-link " href="index.php">Home</a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link " href="about.html">About</a>
+            <a class="nav-link " href="agents-grid.php">Agent</a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link " href="property-grid.html">Property</a>
+            <a class="nav-link " href="property-grid.php">Property</a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link " href="blog-grid.html">Blog</a>
-          </li>
-
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
-            <div class="dropdown-menu">
-              <a class="dropdown-item " href="property-single.html">Property Single</a>
-              <a class="dropdown-item " href="blog-single.html">Blog Single</a>
-              <a class="dropdown-item " href="agents-grid.html">Agents Grid</a>
-              <a class="dropdown-item " href="agent-single.html">Agent Single</a>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" href="contact.html">Contact</a>
+            <a class="nav-link active" href="contact.php">Contact</a>
           </li>
         </ul>
       </div>
 
-      <button type="button" class="btn btn-b-n navbar-toggle-box navbar-toggle-box-collapse" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01">
-        <i class="bi bi-search"></i>
-      </button>
 
     </div>
   </nav><!-- End Header/Navbar -->
@@ -189,14 +235,16 @@
           <div class="col-md-12 col-lg-8">
             <div class="title-single-box">
               <h1 class="title-single">Contact US</h1>
-              <span class="color-text-a">Aut voluptas consequatur unde sed omnis ex placeat quis eos. Aut natus officia corrupti qui autem fugit consectetur quo. Et ipsum eveniet laboriosam voluptas beatae possimus qui ducimus. Et voluptatem deleniti. Voluptatum voluptatibus amet. Et esse sed omnis inventore hic culpa.</span>
+              <span class="color-text-a">housesMost estate agencies have more clients for management than any other service. As more people own properties, they also seek professionals who can manage them well. So, the management differs depending on the type of property and the services they offer. 
+                
+              Rented and leased property requires careful management to ensure that all units are occupied at any one time, the tenant’s rights are put into considerations and also instill the following of agreement on the contract including rent payments.</span>
             </div>
           </div>
           <div class="col-md-12 col-lg-4">
             <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
               <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                  <a href="index.html">Home</a>
+                  <a href="index.php">Home</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
                   Contact
@@ -212,17 +260,15 @@
     <section class="contact">
       <div class="container">
         <div class="row">
-          <div class="col-sm-12">
-            <div class="contact-map box">
-              <div id="map" class="contact-map">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.1422937950147!2d-73.98731968482413!3d40.75889497932681!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25855c6480299%3A0x55194ec5a1ae072e!2sTimes+Square!5e0!3m2!1ses-419!2sve!4v1510329142834" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
-              </div>
+          <div class="col-md-12 my-3">
+            <div class="mb-3">
+              <?php echo $contactMessage; ?>
             </div>
           </div>
           <div class="col-sm-12 section-t8">
             <div class="row">
               <div class="col-md-7">
-                <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+                <form action="<?php $_PHP_SELF; ?>" method="post" role="form" class="php-email-form">
                   <div class="row">
                     <div class="col-md-6 mb-3">
                       <div class="form-group">
@@ -246,14 +292,13 @@
                     </div>
                     <div class="col-md-12 my-3">
                       <div class="mb-3">
-                        <div class="loading">Loading</div>
-                        <div class="error-message"></div>
-                        <div class="sent-message">Your message has been sent. Thank you!</div>
+                        <?php echo $contactMessage; ?>
+                        
                       </div>
                     </div>
 
                     <div class="col-md-12 text-center">
-                      <button type="submit" class="btn btn-a">Send Message</button>
+                      <button type="submit" name="submit" class="btn btn-a">Send Message</button>
                     </div>
                   </div>
                 </form>
@@ -500,7 +545,7 @@
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <!-- <script src="assets/vendor/php-email-form/validate.js"></script> -->
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
 
   <!-- Template Main JS File -->

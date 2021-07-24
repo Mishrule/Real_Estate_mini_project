@@ -16,6 +16,8 @@
 
     if(isset($_POST['paymentBTN'])){
         $tenantName = mysqli_real_escape_string($con, $_POST['tenantName']);
+        $tenantContact = mysqli_real_escape_string($con, $_POST['tenantContact']);
+
         $propertyname = mysqli_real_escape_string($con, $_POST['propertyname']);
         $landlord = mysqli_real_escape_string($con, $_POST['landlord']);
         $rentmonth = mysqli_real_escape_string($con, $_POST['rentmonth']);
@@ -28,7 +30,7 @@
         $transactionid = mysqli_real_escape_string($con, $_POST['transactionid']);
         $date_month = mysqli_real_escape_string($con, $_POST['date_month']);
 
-        $transactionSQL = "INSERT INTO payment VALUES('','$tenantName','$propertyname','$landlord','$rentmonth','$amountpermonth','$amountChargedByAgency','$totalPaymentAgency','$totalPaymentLandlord','$totalPayment','$transactionid','$date_month','$date_year','$DateTime')";
+        $transactionSQL = "INSERT INTO payment VALUES('','$tenantName','$tenantContact','$propertyname','$landlord','$rentmonth','$amountpermonth','$amountChargedByAgency','$totalPaymentAgency','$totalPaymentLandlord','$totalPayment','$transactionid','$date_month','$date_year','$DateTime')";
 
         $transactionResult = mysqli_query($con, $transactionSQL);
 

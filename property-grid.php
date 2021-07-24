@@ -1,4 +1,4 @@
-<?php require_once('scripts/db.php')?>s
+<?php require_once('scripts/db.php')?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,12 +6,12 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>EstateAgency Bootstrap Template - Index</title>
+  <title>Rabdan Real Estate - Property-Grid</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
+  <link href="Admin/assets/images/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
@@ -138,45 +138,29 @@
         <span></span>
         <span></span>
       </button>
-      <a class="navbar-brand text-brand" href="index.html">Estate<span class="color-b">Agency</span></a>
+      <a class="navbar-brand text-brand" href="index.php">Rabdan Real <span class="color-b">Estate</span></a>
 
       <div class="navbar-collapse collapse justify-content-center" id="navbarDefault">
         <ul class="navbar-nav">
 
           <li class="nav-item">
-            <a class="nav-link " href="index.html">Home</a>
+            <a class="nav-link " href="index.php">Home</a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link " href="about.html">About</a>
+            <a class="nav-link " href="agents-grid.php">Agent</a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link active" href="property-grid.html">Property</a>
+            <a class="nav-link active" href="property-grid.php">Property</a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link " href="blog-grid.html">Blog</a>
-          </li>
-
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
-            <div class="dropdown-menu">
-              <a class="dropdown-item " href="property-single.html">Property Single</a>
-              <a class="dropdown-item " href="blog-single.html">Blog Single</a>
-              <a class="dropdown-item " href="agents-grid.html">Agents Grid</a>
-              <a class="dropdown-item " href="agent-single.html">Agent Single</a>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link " href="contact.html">Contact</a>
+            <a class="nav-link " href="contact.php">Contact</a>
           </li>
         </ul>
       </div>
 
-      <button type="button" class="btn btn-b-n navbar-toggle-box navbar-toggle-box-collapse" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01">
-        <i class="bi bi-search"></i>
-      </button>
 
     </div>
   </nav><!-- End Header/Navbar -->
@@ -247,7 +231,7 @@
                     <div class="price-box d-flex">
                       <span class="price-a">rent | $ '.$propStaticRow['proptotal'].'</span>
                     </div>
-                    <a href="property-single.php?propid='.$propStaticRow['proptotal'].'" class="link-a">Click here to view
+                    <a href="property-single.php?propid='.$propStaticRow['propid'].'" class="link-a">Click here to view
                       <span class="bi bi-chevron-right"></span>
                     </a>
                   </div>
@@ -310,320 +294,9 @@
         }
       
       ?>
-      <!--
-          <div class="col-md-4">
-            <div class="card-box-a card-shadow">
-              <div class="img-box-a">
-                <img src="assets/img/property-1.jpg" alt="" class="img-a img-fluid">
-              </div>
-              <div class="card-overlay">
-                <div class="card-overlay-a-content">
-                  <div class="card-header-a">
-                    <h2 class="card-title-a">
-                      <a href="#">204 Mount
-                        <br /> Olive Road Two</a>
-                    </h2>
-                  </div>
-                  <div class="card-body-a">
-                    <div class="price-box d-flex">
-                      <span class="price-a">rent | $ 12.000</span>
-                    </div>
-                    <a href="property-single.html" class="link-a">Click here to view
-                      <span class="bi bi-chevron-right"></span>
-                    </a>
-                  </div>
-                  <div class="card-footer-a">
-                    <ul class="card-info d-flex justify-content-around">
-                      <li>
-                        <h4 class="card-info-title">Area</h4>
-                        <span>340m
-                          <sup>2</sup>
-                        </span>
-                      </li>
-                      <li>
-                        <h4 class="card-info-title">Beds</h4>
-                        <span>2</span>
-                      </li>
-                      <li>
-                        <h4 class="card-info-title">Baths</h4>
-                        <span>4</span>
-                      </li>
-                      <li>
-                        <h4 class="card-info-title">Garages</h4>
-                        <span>1</span>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card-box-a card-shadow">
-              <div class="img-box-a">
-                <img src="assets/img/property-3.jpg" alt="" class="img-a img-fluid">
-              </div>
-              <div class="card-overlay">
-                <div class="card-overlay-a-content">
-                  <div class="card-header-a">
-                    <h2 class="card-title-a">
-                      <a href="#">204 Mount
-                        <br /> Olive Road Two</a>
-                    </h2>
-                  </div>
-                  <div class="card-body-a">
-                    <div class="price-box d-flex">
-                      <span class="price-a">rent | $ 12.000</span>
-                    </div>
-                    <a href="property-single.html" class="link-a">Click here to view
-                      <span class="bi bi-chevron-right"></span>
-                    </a>
-                  </div>
-                  <div class="card-footer-a">
-                    <ul class="card-info d-flex justify-content-around">
-                      <li>
-                        <h4 class="card-info-title">Area</h4>
-                        <span>340m
-                          <sup>2</sup>
-                        </span>
-                      </li>
-                      <li>
-                        <h4 class="card-info-title">Beds</h4>
-                        <span>2</span>
-                      </li>
-                      <li>
-                        <h4 class="card-info-title">Baths</h4>
-                        <span>4</span>
-                      </li>
-                      <li>
-                        <h4 class="card-info-title">Garages</h4>
-                        <span>1</span>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card-box-a card-shadow">
-              <div class="img-box-a">
-                <img src="assets/img/property-6.jpg" alt="" class="img-a img-fluid">
-              </div>
-              <div class="card-overlay">
-                <div class="card-overlay-a-content">
-                  <div class="card-header-a">
-                    <h2 class="card-title-a">
-                      <a href="#">204 Mount
-                        <br /> Olive Road Two</a>
-                    </h2>
-                  </div>
-                  <div class="card-body-a">
-                    <div class="price-box d-flex">
-                      <span class="price-a">rent | $ 12.000</span>
-                    </div>
-                    <a href="property-single.html" class="link-a">Click here to view
-                      <span class="bi bi-chevron-right"></span>
-                    </a>
-                  </div>
-                  <div class="card-footer-a">
-                    <ul class="card-info d-flex justify-content-around">
-                      <li>
-                        <h4 class="card-info-title">Area</h4>
-                        <span>340m
-                          <sup>2</sup>
-                        </span>
-                      </li>
-                      <li>
-                        <h4 class="card-info-title">Beds</h4>
-                        <span>2</span>
-                      </li>
-                      <li>
-                        <h4 class="card-info-title">Baths</h4>
-                        <span>4</span>
-                      </li>
-                      <li>
-                        <h4 class="card-info-title">Garages</h4>
-                        <span>1</span>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card-box-a card-shadow">
-              <div class="img-box-a">
-                <img src="assets/img/property-7.jpg" alt="" class="img-a img-fluid">
-              </div>
-              <div class="card-overlay">
-                <div class="card-overlay-a-content">
-                  <div class="card-header-a">
-                    <h2 class="card-title-a">
-                      <a href="#">204 Mount
-                        <br /> Olive Road Two</a>
-                    </h2>
-                  </div>
-                  <div class="card-body-a">
-                    <div class="price-box d-flex">
-                      <span class="price-a">rent | $ 12.000</span>
-                    </div>
-                    <a href="property-single.html" class="link-a">Click here to view
-                      <span class="bi bi-chevron-right"></span>
-                    </a>
-                  </div>
-                  <div class="card-footer-a">
-                    <ul class="card-info d-flex justify-content-around">
-                      <li>
-                        <h4 class="card-info-title">Area</h4>
-                        <span>340m
-                          <sup>2</sup>
-                        </span>
-                      </li>
-                      <li>
-                        <h4 class="card-info-title">Beds</h4>
-                        <span>2</span>
-                      </li>
-                      <li>
-                        <h4 class="card-info-title">Baths</h4>
-                        <span>4</span>
-                      </li>
-                      <li>
-                        <h4 class="card-info-title">Garages</h4>
-                        <span>1</span>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card-box-a card-shadow">
-              <div class="img-box-a">
-                <img src="assets/img/property-8.jpg" alt="" class="img-a img-fluid">
-              </div>
-              <div class="card-overlay">
-                <div class="card-overlay-a-content">
-                  <div class="card-header-a">
-                    <h2 class="card-title-a">
-                      <a href="#">204 Mount
-                        <br /> Olive Road Two</a>
-                    </h2>
-                  </div>
-                  <div class="card-body-a">
-                    <div class="price-box d-flex">
-                      <span class="price-a">rent | $ 12.000</span>
-                    </div>
-                    <a href="property-single.html" class="link-a">Click here to view
-                      <span class="bi bi-chevron-right"></span>
-                    </a>
-                  </div>
-                  <div class="card-footer-a">
-                    <ul class="card-info d-flex justify-content-around">
-                      <li>
-                        <h4 class="card-info-title">Area</h4>
-                        <span>340m
-                          <sup>2</sup>
-                        </span>
-                      </li>
-                      <li>
-                        <h4 class="card-info-title">Beds</h4>
-                        <span>2</span>
-                      </li>
-                      <li>
-                        <h4 class="card-info-title">Baths</h4>
-                        <span>4</span>
-                      </li>
-                      <li>
-                        <h4 class="card-info-title">Garages</h4>
-                        <span>1</span>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card-box-a card-shadow">
-              <div class="img-box-a">
-                <img src="assets/img/property-10.jpg" alt="" class="img-a img-fluid">
-              </div>
-              <div class="card-overlay">
-                <div class="card-overlay-a-content">
-                  <div class="card-header-a">
-                    <h2 class="card-title-a">
-                      <a href="#">204 Mount
-                        <br /> Olive Road Two</a>
-                    </h2>
-                  </div>
-                  <div class="card-body-a">
-                    <div class="price-box d-flex">
-                      <span class="price-a">rent | $ 12.000</span>
-                    </div>
-                    <a href="property-single.html" class="link-a">Click here to view
-                      <span class="bi bi-chevron-right"></span>
-                    </a>
-                  </div>
-                  <div class="card-footer-a">
-                    <ul class="card-info d-flex justify-content-around">
-                      <li>
-                        <h4 class="card-info-title">Area</h4>
-                        <span>340m
-                          <sup>2</sup>
-                        </span>
-                      </li>
-                      <li>
-                        <h4 class="card-info-title">Beds</h4>
-                        <span>2</span>
-                      </li>
-                      <li>
-                        <h4 class="card-info-title">Baths</h4>
-                        <span>4</span>
-                      </li>
-                      <li>
-                        <h4 class="card-info-title">Garages</h4>
-                        <span>1</span>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-      -->
+   
         </div>
-      <!--
-        <div class="row">
-          <div class="col-sm-12">
-            <nav class="pagination-a">
-              <ul class="pagination justify-content-end">
-                <li class="page-item disabled">
-                  <a class="page-link" href="#" tabindex="-1">
-                    <span class="bi bi-chevron-left"></span>
-                  </a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">1</a>
-                </li>
-                <li class="page-item active">
-                  <a class="page-link" href="#">2</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">3</a>
-                </li>
-                <li class="page-item next">
-                  <a class="page-link" href="#">
-                    <span class="bi bi-chevron-right"></span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      -->
+ 
       </div>
     </section><!-- End Property Grid Single-->
 
@@ -636,7 +309,7 @@
         <div class="col-sm-12 col-md-4">
           <div class="widget-a">
             <div class="w-header-a">
-              <h3 class="w-title-a text-brand">EstateAgency</h3>
+              <h3 class="w-title-a text-brand">Rabdan Real Estate agents and brokers</h3>
             </div>
             <div class="w-body-a">
               <p class="w-text-a color-text-a">
@@ -656,66 +329,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-12 col-md-4 section-md-t3">
-          <div class="widget-a">
-            <div class="w-header-a">
-              <h3 class="w-title-a text-brand">The Company</h3>
-            </div>
-            <div class="w-body-a">
-              <div class="w-body-a">
-                <ul class="list-unstyled">
-                  <li class="item-list-a">
-                    <i class="bi bi-chevron-right"></i> <a href="#">Site Map</a>
-                  </li>
-                  <li class="item-list-a">
-                    <i class="bi bi-chevron-right"></i> <a href="#">Legal</a>
-                  </li>
-                  <li class="item-list-a">
-                    <i class="bi bi-chevron-right"></i> <a href="#">Agent Admin</a>
-                  </li>
-                  <li class="item-list-a">
-                    <i class="bi bi-chevron-right"></i> <a href="#">Careers</a>
-                  </li>
-                  <li class="item-list-a">
-                    <i class="bi bi-chevron-right"></i> <a href="#">Affiliate</a>
-                  </li>
-                  <li class="item-list-a">
-                    <i class="bi bi-chevron-right"></i> <a href="#">Privacy Policy</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-12 col-md-4 section-md-t3">
-          <div class="widget-a">
-            <div class="w-header-a">
-              <h3 class="w-title-a text-brand">International sites</h3>
-            </div>
-            <div class="w-body-a">
-              <ul class="list-unstyled">
-                <li class="item-list-a">
-                  <i class="bi bi-chevron-right"></i> <a href="#">Venezuela</a>
-                </li>
-                <li class="item-list-a">
-                  <i class="bi bi-chevron-right"></i> <a href="#">China</a>
-                </li>
-                <li class="item-list-a">
-                  <i class="bi bi-chevron-right"></i> <a href="#">Hong Kong</a>
-                </li>
-                <li class="item-list-a">
-                  <i class="bi bi-chevron-right"></i> <a href="#">Argentina</a>
-                </li>
-                <li class="item-list-a">
-                  <i class="bi bi-chevron-right"></i> <a href="#">Singapore</a>
-                </li>
-                <li class="item-list-a">
-                  <i class="bi bi-chevron-right"></i> <a href="#">Philippines</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
+
       </div>
     </div>
   </section>
@@ -726,19 +340,17 @@
           <nav class="nav-footer">
             <ul class="list-inline">
               <li class="list-inline-item">
-                <a href="#">Home</a>
+                <a href="index.php">Home</a>
+              </li>
+              
+              <li class="list-inline-item">
+                <a href="property-grid.php">Property</a>
               </li>
               <li class="list-inline-item">
-                <a href="#">About</a>
+                <a href="agent-grid">Agent</a>
               </li>
               <li class="list-inline-item">
-                <a href="#">Property</a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">Blog</a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">Contact</a>
+                <a href="contact.php">Contact</a>
               </li>
             </ul>
           </nav>
@@ -769,22 +381,18 @@
           <div class="copyright-footer">
             <p class="copyright color-text-a">
               &copy; Copyright
-              <span class="color-a">EstateAgency</span> All Rights Reserved.
+              <span class="color-a">Rabdan Real Estate Agents and Brokers</span> All Rights Reserved.
             </p>
           </div>
           <div class="credits">
-            <!--
-            All the links in the footer should remain intact.
-            You can delete the links only if you purchased the pro version.
-            Licensing information: https://bootstrapmade.com/license/
-            Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=EstateAgency
-          -->
-            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+            
+            Designed by <a href="#">Rabdan Real Estate Agents and Brokers</a>
           </div>
         </div>
       </div>
     </div>
-  </footer><!-- End  Footer -->
+  </footer>
+  <!-- End  Footer -->
 
   <div id="preloader"></div>
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
