@@ -362,17 +362,19 @@
             </div>
             <div class="w-body-a">
               <p class="w-text-a color-text-a">
-                Enim minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip exea commodo consequat duis
-                sed aute irure.
+              There are a variety of real estate professionals who work in the industry and help make it function. The most common examples (other than the ones listed above) are accountants, lawyers, interior designers, stagers, general contractors, construction workers, and tradespeople.
               </p>
             </div>
             <div class="w-footer-a">
               <ul class="list-unstyled">
                 <li class="color-a">
-                  <span class="color-text-a">Phone .</span> contact@example.com
+                  <span class="color-text-a">Phone .</span> +233 244 595551
                 </li>
                 <li class="color-a">
-                  <span class="color-text-a">Email .</span> +54 356 945234
+                  <span class="color-text-a">Phone .</span> +233 544 816217
+                </li>
+                <li class="color-a">
+                  <span class="color-text-a">Email .</span> RaBrokers@gmail.com
                 </li>
               </ul>
             </div>

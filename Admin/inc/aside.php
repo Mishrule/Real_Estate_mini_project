@@ -10,8 +10,8 @@
 
                 <li class="sidebar-title">MANAGEMENT</li>
 
-                <li class="sidebar-item active ">
-                    <a href="index.php" class="sidebar-link">
+                <li class="sidebar-item">
+                    <a href="dashboard.php" class="sidebar-link">
                         <i data-feather="home" width="20"></i>
                         <span>Dashboard</span>
                     </a>

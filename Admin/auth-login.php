@@ -1,13 +1,58 @@
+<?php 
+	include_once('../scripts/db.php');
+	session_start();
+	$loginMsg='';
+
+	if($_SERVER["REQUEST_METHOD"] == "POST"){
+		$authUsername = mysqli_real_escape_string($con, $_POST['authUsername']);
+		$authPassword = mysqli_real_escape_string($con, $_POST['authPassword']);
+
+		if($authUsername == ''){
+			$loginMsg='
+			<div class="alert alert-warning alert-dismissible fade show" role="alert">
+				<strong>Username Field can not be empty</strong> .
+				
+			</div>
+			';
+		}else if($authPassword == ''){
+			$loginMsg='
+			<div class="alert alert-warning alert-dismissible fade show" role="alert">
+				<strong>Password Field can not be empty</strong> .
+			</div>
+			';
+		}else{
+			
+				$loginSQL = "SELECT username FROM users WHERE username='$authUsername' AND userpassword='$authPassword'";
+				$loginResult = mysqli_query($con, $loginSQL);
+				$row = mysqli_fetch_array($loginResult);
+				$count = mysqli_num_rows($loginResult);
+				if ($count == 1) {
+					$_SESSION['user_login'] = $authUsername;
+					header("location:dashboard.php");
+                    $loginMsg =$_SESSION['user_login'];
+				}else {
+					$loginMsg='
+					<div class="alert alert-warning alert-dismissible fade show" role="alert">
+						<strong>Invalid ID or Password</strong> .
+					</div>
+					';
+				} 
+			
+		}
+	}
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign in - Voler Admin Dashboard</title>
+    <title>Sign in - RaBrokers</title>
     <link rel="stylesheet" href="assets/css/bootstrap.css">
 
-    <link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon">
+    <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="assets/css/app.css">
 </head>
 
@@ -20,15 +65,15 @@
                     <div class="card pt-4">
                         <div class="card-body">
                             <div class="text-center mb-5">
-                                <img src="assets/images/favicon.svg" height="48" class='mb-4'>
+                                <!-- <img src="assets/images/favicon.svg" height="48" class='mb-4'> -->
                                 <h3>Sign In</h3>
-                                <p>Please sign in to continue to Voler.</p>
+                                <p>Please sign in to log into Admin Dashboard.</p>
                             </div>
-                            <form action="index.html">
+                            <form action="<?php $_SELF_PHP; ?>" method="POST">
                                 <div class="form-group position-relative has-icon-left">
                                     <label for="username">Username</label>
                                     <div class="position-relative">
-                                        <input type="text" class="form-control" id="username">
+                                        <input type="text" class="form-control" id="authUsername" name="authUsername">
                                         <div class="form-control-icon">
                                             <i data-feather="user"></i>
                                         </div>
@@ -37,12 +82,12 @@
                                 <div class="form-group position-relative has-icon-left">
                                     <div class="clearfix">
                                         <label for="password">Password</label>
-                                        <a href="auth-forgot-password.html" class='float-end'>
-                                            <small>Forgot password?</small>
-                                        </a>
+                                        <!-- <a href="auth-forgot-password.html" class='float-end'> -->
+                                            <!-- <small>Forgot password?</small> -->
+                                        <!-- </a> -->
                                     </div>
                                     <div class="position-relative">
-                                        <input type="password" class="form-control" id="password">
+                                        <input type="password" class="form-control" id="authPassword" name="authPassword">
                                         <div class="form-control-icon">
                                             <i data-feather="lock"></i>
                                         </div>
@@ -50,22 +95,23 @@
                                 </div>
 
                                 <div class='form-check clearfix my-4'>
-                                    <div class="checkbox float-start">
+                                    <!-- <div class="checkbox float-start">
                                         <input type="checkbox" id="checkbox1" class='form-check-input'>
                                         <label for="checkbox1">Remember me</label>
-                                    </div>
+                                    </div> -->
+                                    <?php echo $loginMsg;?>
                                     <div class="float-end">
-                                        <a href="auth-register.html">Don't have an account?</a>
+                                        <!-- <a href="auth-register.html">Don't have an account?</a> -->
                                     </div>
                                 </div>
                                 <div class="clearfix">
-                                    <button class="btn btn-primary float-end">Submit</button>
+                                    <button type="submit" id="submit" name="submit" class="btn btn-primary float-end">Submit</button>
                                 </div>
                             </form>
-                            <div class="divider">
+                            <!-- <div class="divider">
                                 <div class="divider-text">OR</div>
-                            </div>
-                            <div class="row">
+                            </div> -->
+                            <!-- <div class="row">
                                 <div class="col-sm-6">
                                     <button class="btn btn-block mb-2 btn-primary"><i data-feather="facebook"></i>
                                         Facebook</button>
@@ -74,7 +120,7 @@
                                     <button class="btn btn-block mb-2 btn-secondary"><i data-feather="github"></i>
                                         Github</button>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
