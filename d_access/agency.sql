@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 22, 2021 at 11:08 PM
+-- Generation Time: Jul 24, 2021 at 09:19 PM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -48,6 +48,27 @@ INSERT INTO `agent` (`agentid`, `agentname`, `agentbio`, `agentlocation`, `agent
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `contact`
+--
+
+CREATE TABLE `contact` (
+  `contactname` varchar(250) NOT NULL,
+  `contactemail` varchar(250) NOT NULL,
+  `contactsubject` varchar(250) NOT NULL,
+  `contactmessage` varchar(250) NOT NULL,
+  `createddate` varchar(250) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `contact`
+--
+
+INSERT INTO `contact` (`contactname`, `contactemail`, `contactsubject`, `contactmessage`, `createddate`) VALUES
+('Mish', 'mish@mail.com', 'Testing', 'Testing...', '');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `landlord`
 --
 
@@ -79,6 +100,7 @@ INSERT INTO `landlord` (`landlordid`, `landlordname`, `landlordbio`, `landlordlo
 CREATE TABLE `payment` (
   `paymentid` int(20) NOT NULL,
   `tenantname` varchar(250) NOT NULL,
+  `tenantcontact` varchar(20) NOT NULL,
   `propertyname` varchar(250) NOT NULL,
   `landlordname` varchar(250) NOT NULL,
   `monthstorent` varchar(250) NOT NULL,
@@ -97,8 +119,9 @@ CREATE TABLE `payment` (
 -- Dumping data for table `payment`
 --
 
-INSERT INTO `payment` (`paymentid`, `tenantname`, `propertyname`, `landlordname`, `monthstorent`, `amountpermonth`, `amountchargedbyagency`, `paymenttoagency`, `paymenttolandlord`, `totalpayment`, `transactionid`, `month`, `year`, `createddate`) VALUES
-(1, 'Fred Arthur', '7', 'Mr Seth', '12', '150', '50', '600', '1800', '2400', '1626906503534', 'July', '2021', 'July-21-2021 22:28:23');
+INSERT INTO `payment` (`paymentid`, `tenantname`, `tenantcontact`, `propertyname`, `landlordname`, `monthstorent`, `amountpermonth`, `amountchargedbyagency`, `paymenttoagency`, `paymenttolandlord`, `totalpayment`, `transactionid`, `month`, `year`, `createddate`) VALUES
+(1, 'Fred Arthur', '', '7', 'Mr Seth', '12', '150', '50', '600', '1800', '2400', '1626906503534', 'July', '2021', 'July-21-2021 22:28:23'),
+(2, 'Bismark Mensah', '02451858541', '8', 'Mr Seth', '15', '300', '100', '1500', '4500', '6000', '1627087266859', 'July', '2021', 'July-24-2021 00:41:06');
 
 -- --------------------------------------------------------
 
@@ -132,7 +155,8 @@ CREATE TABLE `property` (
 --
 
 INSERT INTO `property` (`propid`, `propname`, `propDescription`, `proplocation`, `propstatus`, `proprooms`, `propbathrooms`, `propgarage`, `propwater`, `propfloortype`, `propagentname`, `proplandlord`, `proproomaction`, `propimage`, `propamount`, `propamountcharged`, `proptotal`, `createddate`) VALUES
-(7, 'Alvan lodge', 'Single room selfcontain,', 'Tanoso', 'Not Occupied', '1', '1', 'No', 'Yes', 'Cement', 'Akwesi Mensah', 'Mr Seth', 'InActive', 'Blazor-Development.jpg', '150', '50', '200', 'July-20-2021 20:09:35');
+(7, 'Alvan lodge', 'Single room selfcontain,', 'Tanoso', 'Occupied', '1', '1', 'No', 'Yes', 'Cement', 'Akwesi Mensah', 'Mr Seth', 'Active', 'Blazor-Development.jpg', '150', '50', '200', 'July-20-2021 20:09:35'),
+(8, 'Mish Lodge', '3 Bed rooms self Contain', 'Abuakwa', 'Not Occupied', '3', '2', 'No', 'Yes', 'Tiled', 'Akwesi Mensah', 'Mr Seth', 'InActive', 'slide-1.jpg', '300', '100', '400', 'July-22-2021 21:24:50');
 
 -- --------------------------------------------------------
 
@@ -257,13 +281,13 @@ ALTER TABLE `landlord`
 -- AUTO_INCREMENT for table `payment`
 --
 ALTER TABLE `payment`
-  MODIFY `paymentid` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `paymentid` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `property`
 --
 ALTER TABLE `property`
-  MODIFY `propid` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `propid` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `testimonial`
